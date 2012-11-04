@@ -1,5 +1,5 @@
 //
-//  SPListItem.h
+//  SPWeb.m
 //
 //  Copyright (c) 2012 Nathan Wood (http://www.woodnathan.com/)
 //
@@ -21,25 +21,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "SPObject.h"
+#import "SPWeb.h"
 
-@class SPList;
+@implementation SPWeb
 
-@interface SPListItem : SPObject
+@dynamic title, URLString;
 
-@property (nonatomic, strong) NSString *listName;
-
-@property (nonatomic, readonly) NSString *title;
-@property (nonatomic, readonly) NSString *filename;
-@property (nonatomic, readonly) NSString *URLString;
-@property (nonatomic, readonly) NSString *contentType;
-@property (nonatomic, readonly) NSString *fileRef;
-@property (nonatomic, readonly) NSDate *modifiedDate;
-
-@property (nonatomic, weak) SPList *list;
-@property (nonatomic, weak) SPListItem *parent;
-@property (nonatomic, copy) NSArray *children;
-
-- (void)loadChildren:(void (^)(NSArray *items))completion;
++ (NSDictionary *)propertyToAttributeMap
+{
+    return @{ @"title" : @"Title", @"URLString" : @"Url" };
+}
 
 @end

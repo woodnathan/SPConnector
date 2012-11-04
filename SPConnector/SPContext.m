@@ -28,6 +28,8 @@
 #import "SPGetListCollection.h"
 #import "SPGetListItems.h"
 
+#import "SPGetWebCollection.h"
+
 @interface SPContext ()
 
 @property (nonatomic, copy, readwrite) NSURL *siteURL;
@@ -73,6 +75,18 @@
 - (void)enqueueMethod:(SPMethod *)method
 {
     [self.methodQueue addOperation:method];
+}
+
+- (void)getWebCollection:(void (^)(NSArray *webs))completion
+{
+    SPGetWebCollection *op = [[SPGetWebCollection alloc] initWithContext:self];
+    
+    if (completion)
+        [op setCompletionBlock:^{
+            completion(op.responseObjects);
+        }];
+    
+    [self enqueueMethod:op];
 }
 
 - (void)getListCollection:(void (^)(NSArray *lists))completion

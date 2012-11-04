@@ -1,5 +1,5 @@
 //
-//  SPListItem.h
+//  SPWeb.h
 //
 //  Copyright (c) 2012 Nathan Wood (http://www.woodnathan.com/)
 //
@@ -23,23 +23,9 @@
 
 #import "SPObject.h"
 
-@class SPList;
-
-@interface SPListItem : SPObject
-
-@property (nonatomic, strong) NSString *listName;
+@interface SPWeb : SPObject
 
 @property (nonatomic, readonly) NSString *title;
-@property (nonatomic, readonly) NSString *filename;
 @property (nonatomic, readonly) NSString *URLString;
-@property (nonatomic, readonly) NSString *contentType;
-@property (nonatomic, readonly) NSString *fileRef;
-@property (nonatomic, readonly) NSDate *modifiedDate;
-
-@property (nonatomic, weak) SPList *list;
-@property (nonatomic, weak) SPListItem *parent;
-@property (nonatomic, copy) NSArray *children;
-
-- (void)loadChildren:(void (^)(NSArray *items))completion;
 
 @end

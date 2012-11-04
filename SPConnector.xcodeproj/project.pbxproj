@@ -25,6 +25,12 @@
 		D834F35F163FDEDF00D4563F /* SPListItem.h in Headers */ = {isa = PBXBuildFile; fileRef = D834F35D163FDEDF00D4563F /* SPListItem.h */; };
 		D834F360163FDEDF00D4563F /* SPListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D834F35E163FDEDF00D4563F /* SPListItem.m */; };
 		D86E881C16400D440039EF9A /* SPConnector.h in Headers */ = {isa = PBXBuildFile; fileRef = D86E881B16400D440039EF9A /* SPConnector.h */; };
+		D8742BD016463EFD00D67419 /* SPWeb.h in Headers */ = {isa = PBXBuildFile; fileRef = D8742BCE16463EFD00D67419 /* SPWeb.h */; };
+		D8742BD116463EFD00D67419 /* SPWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = D8742BCF16463EFD00D67419 /* SPWeb.m */; };
+		D8742BD616463F5700D67419 /* SPWebsMethod.h in Headers */ = {isa = PBXBuildFile; fileRef = D8742BD416463F5700D67419 /* SPWebsMethod.h */; };
+		D8742BD716463F5700D67419 /* SPWebsMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = D8742BD516463F5700D67419 /* SPWebsMethod.m */; };
+		D8742BDA16463F8300D67419 /* SPGetWebCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = D8742BD816463F8300D67419 /* SPGetWebCollection.h */; };
+		D8742BDB16463F8300D67419 /* SPGetWebCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = D8742BD916463F8300D67419 /* SPGetWebCollection.m */; };
 		D890B213163F77A300734279 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D890B212163F77A300734279 /* Foundation.framework */; };
 		D890B223163F77D900734279 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D890B222163F77D900734279 /* libxml2.dylib */; };
 		D890B22A163F78D700734279 /* SPContext.h in Headers */ = {isa = PBXBuildFile; fileRef = D890B228163F78D700734279 /* SPContext.h */; };
@@ -50,6 +56,12 @@
 		D834F35D163FDEDF00D4563F /* SPListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPListItem.h; sourceTree = "<group>"; };
 		D834F35E163FDEDF00D4563F /* SPListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPListItem.m; sourceTree = "<group>"; };
 		D86E881B16400D440039EF9A /* SPConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPConnector.h; sourceTree = "<group>"; };
+		D8742BCE16463EFD00D67419 /* SPWeb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPWeb.h; sourceTree = "<group>"; };
+		D8742BCF16463EFD00D67419 /* SPWeb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPWeb.m; sourceTree = "<group>"; };
+		D8742BD416463F5700D67419 /* SPWebsMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPWebsMethod.h; sourceTree = "<group>"; };
+		D8742BD516463F5700D67419 /* SPWebsMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPWebsMethod.m; sourceTree = "<group>"; };
+		D8742BD816463F8300D67419 /* SPGetWebCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGetWebCollection.h; sourceTree = "<group>"; };
+		D8742BD916463F8300D67419 /* SPGetWebCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGetWebCollection.m; sourceTree = "<group>"; };
 		D890B20F163F77A300734279 /* libSPConnector.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSPConnector.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D890B212163F77A300734279 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D890B222163F77D900734279 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
@@ -105,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				D834F358163FDEA400D4563F /* Lists */,
+				D8742BD316463F4500D67419 /* Webs */,
 			);
 			name = "Method Implementations";
 			sourceTree = "<group>";
@@ -116,6 +129,8 @@
 				D834F342163F9F0C00D4563F /* SPList.m */,
 				D834F35D163FDEDF00D4563F /* SPListItem.h */,
 				D834F35E163FDEDF00D4563F /* SPListItem.m */,
+				D8742BCE16463EFD00D67419 /* SPWeb.h */,
+				D8742BCF16463EFD00D67419 /* SPWeb.m */,
 			);
 			name = "Object Implementations";
 			sourceTree = "<group>";
@@ -131,6 +146,17 @@
 				D834F35A163FDEC800D4563F /* SPGetListItems.m */,
 			);
 			name = Lists;
+			sourceTree = "<group>";
+		};
+		D8742BD316463F4500D67419 /* Webs */ = {
+			isa = PBXGroup;
+			children = (
+				D8742BD416463F5700D67419 /* SPWebsMethod.h */,
+				D8742BD516463F5700D67419 /* SPWebsMethod.m */,
+				D8742BD816463F8300D67419 /* SPGetWebCollection.h */,
+				D8742BD916463F8300D67419 /* SPGetWebCollection.m */,
+			);
+			name = Webs;
 			sourceTree = "<group>";
 		};
 		D890B204163F77A300734279 = {
@@ -191,6 +217,9 @@
 				D834F35B163FDEC800D4563F /* SPGetListItems.h in Headers */,
 				D834F35F163FDEDF00D4563F /* SPListItem.h in Headers */,
 				D86E881C16400D440039EF9A /* SPConnector.h in Headers */,
+				D8742BD016463EFD00D67419 /* SPWeb.h in Headers */,
+				D8742BD616463F5700D67419 /* SPWebsMethod.h in Headers */,
+				D8742BDA16463F8300D67419 /* SPGetWebCollection.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,6 +283,9 @@
 				D834F344163F9F0C00D4563F /* SPList.m in Sources */,
 				D834F35C163FDEC800D4563F /* SPGetListItems.m in Sources */,
 				D834F360163FDEDF00D4563F /* SPListItem.m in Sources */,
+				D8742BD116463EFD00D67419 /* SPWeb.m in Sources */,
+				D8742BD716463F5700D67419 /* SPWebsMethod.m in Sources */,
+				D8742BDB16463F8300D67419 /* SPGetWebCollection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

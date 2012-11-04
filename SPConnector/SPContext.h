@@ -42,6 +42,7 @@ typedef void(^SPContextRequestSetup)(id requestOperation);
 
 - (void)enqueueMethod:(SPMethod *)method;
 
+- (void)getWebCollection:(void (^)(NSArray *webs))completion;
 - (void)getListCollection:(void (^)(NSArray *lists))completion;
 - (void)getList:(NSString *)listName items:(void (^)(NSArray *items))completion;
 - (void)getList:(NSString *)listName parentRef:(NSString *)parentRef items:(void (^)(NSArray *items))completion;
