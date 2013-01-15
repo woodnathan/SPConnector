@@ -23,7 +23,11 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString *const SPContextWillBeDeallocated;
+
 @class SPMethod;
+@class SPWeb, SPList;
+@class SPGetListItems;
 
 typedef void(^SPContextRequestSetup)(id requestOperation);
 
@@ -42,9 +46,23 @@ typedef void(^SPContextRequestSetup)(id requestOperation);
 
 - (void)enqueueMethod:(SPMethod *)method;
 
+@end
+
+@interface SPContext (Operations)
+
+// Webs
 - (void)getWebCollection:(void (^)(NSArray *webs))completion;
+- (void)getWeb:(NSString *)webURL completion:(void (^)(SPWeb *web))completion;
+
+// Lists
 - (void)getListCollection:(void (^)(NSArray *lists))completion;
+- (void)getList:(NSString *)listName completion:(void (^)(SPList *list))completion;
 - (void)getList:(NSString *)listName items:(void (^)(NSArray *items))completion;
 - (void)getList:(NSString *)listName parentRef:(NSString *)parentRef items:(void (^)(NSArray *items))completion;
+- (void)getList:(NSString *)listName parentRef:(NSString *)parentRef setup:(void (^)(SPGetListItems *op))setup items:(void (^)(NSArray *items))completion;
+- (void)getList:(NSString *)listName itemID:(NSString *)itemID attachments:(void (^)(NSArray *attachments))completion;
+
+// Views
+- (void)getList:(NSString *)listName views:(void (^)(NSArray *views))completion;
 
 @end

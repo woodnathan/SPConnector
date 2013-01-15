@@ -24,6 +24,7 @@
 #import "SPObject.h"
 #import <libxml/tree.h>
 #import <objc/runtime.h>
+#import "SPContext.h"
 
 @interface SPObject () {
     xmlNodePtr _xmlNode;
@@ -36,6 +37,8 @@
 
 + (NSDate *)dateFromString:(NSString *)string;
 
+- (void)contextWillBeDeallocated:(NSNotification *)notification;
+
 @end
 
 
@@ -46,11 +49,18 @@
     self = [super init];
     if (self)
     {
+        // Recursively copy the node with properties and namespaces
         _xmlNode = xmlCopyNode((xmlNodePtr)node, 2);
         if (_xmlNode == NULL)
             return nil;
         
         _context = context;
+        
+        if (context)
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(contextWillBeDeallocated:)
+                                                         name:SPContextWillBeDeallocated
+                                                       object:context];
     }
     return self;
 }
@@ -58,6 +68,13 @@
 - (void)dealloc
 {
     xmlFreeNode(_xmlNode);
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)contextWillBeDeallocated:(NSNotification *)notification
+{
+    if (notification.object == _context)
+        _context = nil;
 }
 
 + (NSDictionary *)propertyToAttributeMap
@@ -75,7 +92,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         formatter = [[NSDateFormatter alloc] init];
-        formatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+        formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
     });
     
     return [formatter dateFromString:string];
@@ -161,10 +178,28 @@ NSString *fastGetter(id self, SEL _cmd) {
     if (attr)
     {
         char *content = (char *)xmlNodeGetContent((xmlNodePtr)attr);
-        return [[NSString alloc] initWithCString:content encoding:NSUTF8StringEncoding];
+        id value = [[NSString alloc] initWithCString:content encoding:NSUTF8StringEncoding];
+        xmlFree(content);
+        
+        return value;
     }
     
     return nil;
+}
+
+- (NSDictionary *)dumpProperties
+{
+    NSMutableDictionary *props = [[NSMutableDictionary alloc] init];
+    for (xmlAttrPtr attr = _xmlNode->properties; attr != NULL; attr = attr->next)
+    {
+        NSString *key = [[NSString alloc] initWithUTF8String:(const char *)attr->name];
+        char *content = (char *)xmlNodeGetContent((xmlNodePtr)attr);
+        NSString *value = [[NSString alloc] initWithCString:content encoding:NSUTF8StringEncoding];
+        xmlFree(content);
+        
+        [props setObject:value forKey:key];
+    }
+    return [props copy];
 }
 
 @end

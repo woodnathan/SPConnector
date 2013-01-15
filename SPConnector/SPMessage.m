@@ -57,7 +57,7 @@ static void xmlErrorFunc(void *ctx, const char *msg, ...)
 
 + (xmlNodePtr)newSOAPEnvelopeNode;
 
-- (void)enumerateNodesForXPath:(NSString *)path namespace:(void (^)(xmlXPathContextPtr ctx))namespace withBlock:(void (^)(xmlNodePtr node))block;
+- (void)enumerateNodesForXPath:(NSString *)path namespace:(void (^)(xmlXPathContextPtr ctx))namespace withBlock:(void (^)(xmlNodePtr node, BOOL *stop))block;
 
 @end
 
@@ -88,7 +88,7 @@ static void xmlErrorFunc(void *ctx, const char *msg, ...)
     {
         xmlSetGenericErrorFunc(NULL, xmlErrorFunc);
         
-        _xmlDoc = xmlReadMemory((const char *)[data bytes], (int)[data length], NULL, NULL, XML_PARSE_NOCDATA | XML_PARSE_NOBLANKS);
+        _xmlDoc = xmlReadMemory((const char *)[data bytes], (int)[data length], NULL, NULL, XML_PARSE_NOCDATA | XML_PARSE_NOBLANKS | XML_PARSE_RECOVER);
         
         if (_xmlDoc == NULL && error)
         {
@@ -162,7 +162,24 @@ static void xmlErrorFunc(void *ctx, const char *msg, ...)
     return nil;
 }
 
-- (void)enumerateNodesForXPath:(NSString *)path namespace:(void (^)(xmlXPathContextPtr ctx))namespace withBlock:(void (^)(xmlNodePtr node))block
+- (void)addMethodElementChild:(xmlNodePtr)child
+{
+    xmlAddChild(self.methodElement, child);
+}
+
+- (xmlNodePtr)addMethodElementWithName:(NSString *)name value:(NSString *)value
+{
+    xmlNodePtr element = xmlNewNode(NULL, (xmlChar *)[name UTF8String]);
+    
+    if (value != nil)
+        xmlNodeSetContent(element, (xmlChar *)[value UTF8String]);
+    
+    [self addMethodElementChild:element];
+    
+    return element;
+}
+
+- (void)enumerateNodesForXPath:(NSString *)path namespace:(void (^)(xmlXPathContextPtr ctx))namespace withBlock:(void (^)(xmlNodePtr node, BOOL *stop))block
 {
     xmlXPathContextPtr ctx = xmlXPathNewContext(_xmlDoc);
     
@@ -174,12 +191,16 @@ static void xmlErrorFunc(void *ctx, const char *msg, ...)
     
     if (obj && xmlXPathNodeSetIsEmpty(obj->nodesetval) == NO)
     {
+        BOOL stop = NO;
         for (int i = 0; i < xmlXPathNodeSetGetLength(obj->nodesetval); i++)
         {
             xmlNodePtr currNode = obj->nodesetval->nodeTab[i];
             
             if (block)
-                block(currNode);
+                block(currNode, &stop);
+            
+            if (stop)
+                break;
         }
     }
     
@@ -187,7 +208,7 @@ static void xmlErrorFunc(void *ctx, const char *msg, ...)
     xmlXPathFreeContext(ctx);
 }
 
-- (void)enumerateNodesForXPath:(NSString *)path withBlock:(void (^)(xmlNodePtr node))block
+- (void)enumerateNodesForXPath:(NSString *)path withBlock:(void (^)(xmlNodePtr node, BOOL *stop))block
 {
     [self enumerateNodesForXPath:path
                        namespace:^(xmlXPathContextPtr ctx) {
@@ -196,7 +217,7 @@ static void xmlErrorFunc(void *ctx, const char *msg, ...)
                        withBlock:block];
 }
 
-- (void)enumerateRowNodesForXPath:(NSString *)path withBlock:(void (^)(xmlNodePtr node))block
+- (void)enumerateRowNodesForXPath:(NSString *)path withBlock:(void (^)(xmlNodePtr node, BOOL *stop))block
 {
     [self enumerateNodesForXPath:path
                        namespace:^(xmlXPathContextPtr ctx) {

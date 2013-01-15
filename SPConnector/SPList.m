@@ -22,28 +22,55 @@
 // THE SOFTWARE.
 
 #import "SPList.h"
-#import "SPContext.h"
-#import "SPListItem.h"
+#import "SPListAttachedObject.h"
 
 @implementation SPList
 
-@dynamic title, identifier, name;
+@synthesize items = _items, fields = _fields, views = _views;
+@dynamic title, identifier, listName;
 
 + (NSDictionary *)propertyToAttributeMap
 {
-    return @{ @"identifier" : @"ID", @"title" : @"Title", @"name" : @"Name" };
+    return @{ @"identifier" : @"ID", @"title" : @"Title", @"listName" : @"Name" };
 }
 
-- (void)loadItems:(void (^)(NSArray *items))completion
+- (void)dealloc
 {
-    [self.context getList:self.name
-                    items:^(NSArray *items) {
-                        self.items = items;
-                        [self.items makeObjectsPerformSelector:@selector(setList:) withObject:self];
-                        
-                        if (completion)
-                            completion(items);
-                    }];
+    [self.items makeObjectsPerformSelector:@selector(setList:) withObject:nil];
+    [self.fields makeObjectsPerformSelector:@selector(setList:) withObject:nil];
+    [self.views makeObjectsPerformSelector:@selector(setList:) withObject:nil];
+}
+
+- (void)makeParentOfObjects:(NSArray *)objects
+{
+    [self.items makeObjectsPerformSelector:@selector(setList:) withObject:self];
+}
+
+- (void)setItems:(NSArray *)items
+{
+    if (self->_items != items)
+    {
+        self->_items = [items copy];
+        [self makeParentOfObjects:self->_items];
+    }
+}
+
+- (void)setFields:(NSArray *)fields
+{
+    if (self->_fields != fields)
+    {
+        self->_fields = [fields copy];
+        [self makeParentOfObjects:self->_fields];
+    }
+}
+
+- (void)setViews:(NSArray *)views
+{
+    if (self->_views != views)
+    {
+        self->_views = [views copy];
+        [self makeParentOfObjects:self->_views];
+    }
 }
 
 @end

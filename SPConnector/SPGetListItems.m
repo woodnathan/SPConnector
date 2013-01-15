@@ -25,6 +25,9 @@
 #import "SPMessage.h"
 
 
+#define kPrepareResponseCapacity 0
+
+
 @interface SPGetListItems ()
 
 @property (nonatomic, strong) NSMutableSet *viewFieldSet;
@@ -51,15 +54,13 @@
 
 - (void)prepareRequestMessage
 {
-    xmlNodePtr listNameElement = xmlNewNode(NULL, (xmlChar *)"listName");
-    xmlNodeSetContent(listNameElement, (xmlChar *)[self.listName UTF8String]);
-    xmlAddChild(self.requestMessage.methodElement, listNameElement);
+    [super prepareRequestMessage];
     
     xmlNodePtr viewFieldsElement = xmlNewNode(NULL, (xmlChar *)"ViewFields");
     xmlNewProp(viewFieldsElement, (xmlChar *)"Properties", (xmlChar *)"True");
     xmlNodePtr vfElement = xmlNewNode(NULL, (xmlChar *)"viewFields");
     xmlAddChild(vfElement, viewFieldsElement);
-    xmlAddChild(self.requestMessage.methodElement, vfElement);
+    [self.requestMessage addMethodElementChild:vfElement];
     
     [self.viewFieldSet enumerateObjectsUsingBlock:^(NSString *fieldName, BOOL *stop) {
         xmlNodePtr field = xmlNewNode(NULL, (xmlChar *)"FieldRef");
@@ -67,9 +68,20 @@
         xmlAddChild(viewFieldsElement, field);
     }];
     
+    /* queryOptions/QueryOptions */
+    {
+        xmlNodePtr queryOptsRootElement = xmlNewNode(NULL, (xmlChar *)"queryOptions");
+        xmlNodePtr queryOptsElement = xmlNewNode(NULL, (xmlChar *)"QueryOptions");
+        xmlNodePtr utcDateElement = xmlNewNode(NULL, (xmlChar *)"DateInUTC");
+        xmlNodeSetContent(utcDateElement, (xmlChar *)"True");
+        xmlAddChild(queryOptsElement, utcDateElement);
+        xmlAddChild(queryOptsRootElement, queryOptsElement);
+        [self.requestMessage addMethodElementChild:queryOptsRootElement];
+    }
+    
     if (self.parentFileRef)
     {
-        xmlNodePtr qElement = xmlNewNode(NULL, (xmlChar *)"query");
+        xmlNodePtr queryRootElement = xmlNewNode(NULL, (xmlChar *)"query");
         xmlNodePtr queryElement = xmlNewNode(NULL, (xmlChar *)"Query");
         xmlNodePtr whereElement = xmlNewNode(NULL, (xmlChar *)"Where");
         xmlNodePtr eqElement = xmlNewNode(NULL, (xmlChar *)"Eq");
@@ -85,17 +97,34 @@
         
         xmlAddChild(whereElement, eqElement);
         xmlAddChild(queryElement, whereElement);
-        xmlAddChild(qElement, queryElement);
-        xmlAddChild(self.requestMessage.methodElement, qElement);
+        xmlAddChild(queryRootElement, queryElement);
+        [self.requestMessage addMethodElementChild:queryRootElement];
     }
 }
 
 - (void)parseResponseMessage
 {
+#if kPrepareResponseCapacity
+    __block NSUInteger itemCount = 0;
+    [self.responseMessage enumerateRowNodesForXPath:@"//rs:data" withBlock:^(xmlNodePtr node, BOOL *stop) {
+        xmlAttr *countAttr = xmlHasProp(node, (const xmlChar *)"ItemCount");
+        if (countAttr)
+        {
+            char *countContent = (char *)xmlNodeGetContent((xmlNodePtr)countAttr);
+            itemCount = atoi(countContent);
+            xmlFree(countContent);
+            
+            *stop = YES;
+        }
+    }];
+    
+    NSMutableArray *objects = [[NSMutableArray alloc] initWithCapacity:itemCount];
+#else
     NSMutableArray *objects = [[NSMutableArray alloc] init];
+#endif
     
     NSString *path = [[self class] objectPath];
-    [self.responseMessage enumerateRowNodesForXPath:path withBlock:^(xmlNodePtr node) {
+    [self.responseMessage enumerateRowNodesForXPath:path withBlock:^(xmlNodePtr node, BOOL *stop) {
         id obj = [[[self class] objectClass] alloc];
         obj = [obj initWithNode:node context:self.context];
         [obj setListName:self.listName];

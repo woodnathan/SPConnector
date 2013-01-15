@@ -1,5 +1,5 @@
 //
-//  SPListItem.h
+//  SPSitesMethod.m
 //
 //  Copyright (c) 2012 Nathan Wood (http://www.woodnathan.com/)
 //
@@ -21,30 +21,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "SPListAttachedObject.h"
+#import "SPSitesMethod.h"
 
-@class SPList;
+@implementation SPSitesMethod
 
-@interface SPListItem : SPListAttachedObject
-
-@property (nonatomic, readonly) NSString *itemID;
-@property (nonatomic, readonly) NSString *itemUniqueID;
-
-@property (nonatomic, readonly) NSString *title;
-@property (nonatomic, readonly) NSString *filename;
-@property (nonatomic, readonly) NSString *URLString;
-@property (nonatomic, readonly) NSString *contentType;
-@property (nonatomic, readonly) NSString *fileRef;
-@property (nonatomic, readonly) NSDate *modifiedDate;
-
-@property (nonatomic, readonly) NSDate *eventStartDate;
-@property (nonatomic, readonly) NSDate *eventEndDate;
-
-@property (nonatomic, weak) SPListItem *parent;
-@property (nonatomic, copy) NSArray *children;
-@property (nonatomic, copy) NSArray *attachments;
-
-- (void)loadChildren:(void (^)(NSArray *items))completion;
-- (void)loadAttachments:(void (^)(NSArray *attachments))completion;
++ (NSString *)endpoint
+{
+    return @"_vti_bin/Sites.asmx";
+}
 
 @end

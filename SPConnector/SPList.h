@@ -27,10 +27,17 @@
 
 @property (nonatomic, readonly) NSString *title;
 @property (nonatomic, readonly) NSString *identifier;
-@property (nonatomic, readonly) NSString *name;
+@property (nonatomic, readonly) NSString *listName;
 
 @property (nonatomic, copy) NSArray *items;
+@property (nonatomic, copy) NSArray *fields;
+@property (nonatomic, copy) NSArray *views;
+
+@end
+
+@interface SPList (Operations)
 
 - (void)loadItems:(void (^)(NSArray *items))completion;
+- (void)loadViews:(void (^)(NSArray *views))completion;
 
 @end

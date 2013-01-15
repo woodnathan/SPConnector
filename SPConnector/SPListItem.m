@@ -29,15 +29,21 @@
 
 @synthesize listName = _listName;
 @dynamic title, filename, URLString, contentType, fileRef, modifiedDate;
+@dynamic eventStartDate, eventEndDate;
 
 + (NSDictionary *)propertyToAttributeMap
 {
-    return @{ @"title" : @"ows_Title", @"filename" : @"ows_LinkFilename", @"URLString" : @"ows_EncodedAbsUrl", @"contentType" : @"ows_ContentType", @"fileRef" : @"ows_FileRef", @"modifiedDate" : @"ows_Modified" };
+    return @{ @"title" : @"ows_Title", @"filename" : @"ows_LinkFilename", @"URLString" : @"ows_EncodedAbsUrl", @"contentType" : @"ows_ContentType", @"fileRef" : @"ows_FileRef", @"modifiedDate" : @"ows_Modified", @"itemID" : @"ows_ID", @"itemUniqueID" : @"ows_UniqueId", @"eventStartDate" : @"ows_EventDate", @"eventEndDate" : @"ows_EndDate" };
 }
 
 + (NSArray *)dateProperties
 {
-    return @[ @"modifiedDate" ];
+    return @[ @"modifiedDate", @"eventStartDate", @"eventEndDate" ];
+}
+
+- (void)dealloc
+{
+    [self.children makeObjectsPerformSelector:@selector(setParent:) withObject:nil];
 }
 
 - (void)loadChildren:(void (^)(NSArray *items))completion
@@ -51,6 +57,19 @@
                         if (completion)
                             completion(items);
                     }];
+}
+
+- (void)loadAttachments:(void (^)(NSArray *attachments))completion
+{
+    [self.context getList:self.listName
+                   itemID:self.itemID
+              attachments:^(NSArray *attachments) {
+                  self.attachments = attachments;
+                  [self.attachments makeObjectsPerformSelector:@selector(setParent:) withObject:self];
+                  
+                  if (completion)
+                      completion(attachments);
+              }];
 }
 
 @end

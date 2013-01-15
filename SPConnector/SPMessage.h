@@ -35,7 +35,10 @@
 @property (nonatomic, readonly) xmlNodePtr rootElement;
 @property (nonatomic, readonly) xmlNodePtr methodElement;
 
-- (void)enumerateNodesForXPath:(NSString *)path withBlock:(void (^)(xmlNodePtr node))block;
-- (void)enumerateRowNodesForXPath:(NSString *)path withBlock:(void (^)(xmlNodePtr node))block;
+- (void)addMethodElementChild:(xmlNodePtr)child;
+- (xmlNodePtr)addMethodElementWithName:(NSString *)name value:(NSString *)value;
+
+- (void)enumerateNodesForXPath:(NSString *)path withBlock:(void (^)(xmlNodePtr node, BOOL *stop))block;
+- (void)enumerateRowNodesForXPath:(NSString *)path withBlock:(void (^)(xmlNodePtr node, BOOL *stop))block;
 
 @end

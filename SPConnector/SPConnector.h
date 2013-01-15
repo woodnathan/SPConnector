@@ -29,4 +29,7 @@
 #import "SPGetListCollection.h"
 #import "SPGetListItems.h"
 
+#import "SPGetViewCollection.h"
+
 #import "SPGetWebCollection.h"
+#import "SPGetWeb.h"

@@ -143,7 +143,7 @@
     NSMutableArray *objects = [[NSMutableArray alloc] init];
     
     NSString *path = [[self class] objectPath];
-    [self.responseMessage enumerateNodesForXPath:path withBlock:^(xmlNodePtr node) {
+    [self.responseMessage enumerateNodesForXPath:path withBlock:^(xmlNodePtr node, BOOL *stop) {
         id obj = [[[self class] objectClass] alloc];
         obj = [obj initWithNode:node context:self.context];
         [objects addObject:obj];

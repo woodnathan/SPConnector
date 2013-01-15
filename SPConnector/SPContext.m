@@ -25,10 +25,7 @@
 #import "SPMethodRequest.h"
 #import "SPMethod.h"
 
-#import "SPGetListCollection.h"
-#import "SPGetListItems.h"
-
-#import "SPGetWebCollection.h"
+NSString *const SPContextWillBeDeallocated = @"kSPContextWillBeDeallocated";
 
 @interface SPContext ()
 
@@ -53,6 +50,12 @@
     return self;
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:SPContextWillBeDeallocated
+                                                        object:self];
+}
+
 - (NSURL *)URLRelativeToSiteWithString:(NSString *)URLString
 {
     return [NSURL URLWithString:URLString relativeToURL:self.siteURL];
@@ -75,50 +78,6 @@
 - (void)enqueueMethod:(SPMethod *)method
 {
     [self.methodQueue addOperation:method];
-}
-
-- (void)getWebCollection:(void (^)(NSArray *webs))completion
-{
-    SPGetWebCollection *op = [[SPGetWebCollection alloc] initWithContext:self];
-    
-    if (completion)
-        [op setCompletionBlock:^{
-            completion(op.responseObjects);
-        }];
-    
-    [self enqueueMethod:op];
-}
-
-- (void)getListCollection:(void (^)(NSArray *lists))completion
-{
-    SPGetListCollection *op = [[SPGetListCollection alloc] initWithContext:self];
-    
-    if (completion)
-        [op setCompletionBlock:^{
-            completion(op.responseObjects);
-        }];
-    
-    [self enqueueMethod:op];
-}
-
-- (void)getList:(NSString *)listName items:(void (^)(NSArray *items))completion
-{
-    [self getList:listName parentRef:nil items:completion];
-}
-
-- (void)getList:(NSString *)listName parentRef:(NSString *)parentRef items:(void (^)(NSArray *items))completion
-{
-    SPGetListItems *op = [[SPGetListItems alloc] initWithContext:self];
-    
-    op.listName = listName;
-    op.parentFileRef = parentRef;
-    
-    if (completion)
-        [op setCompletionBlock:^{
-            completion(op.responseObjects);
-        }];
-    
-    [self enqueueMethod:op];
 }
 
 @end

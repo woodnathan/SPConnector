@@ -1,5 +1,5 @@
 //
-//  SPListItem.h
+//  SPGetAttachmentCollection.m
 //
 //  Copyright (c) 2012 Nathan Wood (http://www.woodnathan.com/)
 //
@@ -21,30 +21,31 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "SPListAttachedObject.h"
+#import "SPGetAttachmentCollection.h"
+#import "SPMessage.h"
 
-@class SPList;
+@implementation SPGetAttachmentCollection
 
-@interface SPListItem : SPListAttachedObject
++ (NSString *)method
+{
+    return @"GetAttachmentCollection";
+}
 
-@property (nonatomic, readonly) NSString *itemID;
-@property (nonatomic, readonly) NSString *itemUniqueID;
++ (NSString *)objectPath
+{
+    return @"//soap:Attachments/soap:Attachment";
+}
 
-@property (nonatomic, readonly) NSString *title;
-@property (nonatomic, readonly) NSString *filename;
-@property (nonatomic, readonly) NSString *URLString;
-@property (nonatomic, readonly) NSString *contentType;
-@property (nonatomic, readonly) NSString *fileRef;
-@property (nonatomic, readonly) NSDate *modifiedDate;
++ (Class)objectClass
+{
+    return [SPAttachment class];
+}
 
-@property (nonatomic, readonly) NSDate *eventStartDate;
-@property (nonatomic, readonly) NSDate *eventEndDate;
-
-@property (nonatomic, weak) SPListItem *parent;
-@property (nonatomic, copy) NSArray *children;
-@property (nonatomic, copy) NSArray *attachments;
-
-- (void)loadChildren:(void (^)(NSArray *items))completion;
-- (void)loadAttachments:(void (^)(NSArray *attachments))completion;
+- (void)prepareRequestMessage
+{
+    [super prepareRequestMessage];
+    
+    [self.requestMessage addMethodElementWithName:@"listItemID" value:self.listItemID];
+}
 
 @end

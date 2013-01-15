@@ -21,12 +21,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "SPListsMethod.h"
+#import "SPListMethod.h"
 #import "SPListItem.h"
 
-@interface SPGetListItems : SPListsMethod
-
-@property (nonatomic, copy) NSString *listName;
+@interface SPGetListItems : SPListMethod
 
 @property (nonatomic, copy) NSString *parentFileRef;
 

@@ -35,4 +35,6 @@
 
 @property (nonatomic, weak, readonly) SPContext *context;
 
+- (NSDictionary *)dumpProperties;
+
 @end
