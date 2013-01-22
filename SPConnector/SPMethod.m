@@ -29,6 +29,7 @@
 #import <libxml/tree.h>
 #import <libxml/xpath.h>
 #import <libxml/xpathInternals.h>
+#import "WNCAMLQuery.h"
 
 @interface SPMethod ()
 
@@ -100,6 +101,14 @@
     NSMutableURLRequest *URLRequest = [[NSMutableURLRequest alloc] initWithURL:URL];
     
     [self prepareRequestMessage];
+    
+    xmlNodePtr queryElement = [WNCAMLQuery queryElementWithPredicate:self.predicate sortDescriptors:self.sortDescriptors];
+    if (queryElement)
+    {
+        xmlNodePtr rootQueryElement = xmlNewNode(NULL, (xmlChar *)"query");
+        xmlAddChild(rootQueryElement, queryElement);
+        [self.requestMessage addMethodElementChild:rootQueryElement];
+    }
     
     NSData *XMLData = [self.requestMessage XMLData];
     

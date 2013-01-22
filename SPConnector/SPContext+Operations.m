@@ -107,6 +107,21 @@
     [self methodForClass:[SPGetListCollection class] setup:NULL completion:completion];
 }
 
+- (void)getListWithList:(SPList *)list completion:(void (^)(SPList *list))completion
+{
+    void(^compBlock)(NSArray *) = NULL;
+    if (completion)
+        compBlock = ^(NSArray *items) {
+            completion([items lastObject]);
+        };
+    
+    [self methodForClass:[SPGetList class]
+                   setup:^(SPGetList *op) {
+                       op.list = list;
+                   }
+              completion:compBlock];
+}
+
 - (void)getList:(NSString *)listName completion:(void (^)(SPList *list))completion
 {
     void(^compBlock)(NSArray *) = NULL;

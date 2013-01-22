@@ -37,6 +37,15 @@
                     }];
 }
 
+- (void)loadFields:(void (^)(NSArray *fields))completion
+{
+    [self.context getListWithList:self
+                       completion:^(SPList *list) {
+                           if (completion)
+                               completion(self.fields);
+                       }];
+}
+
 - (void)loadViews:(void (^)(NSArray *views))completion
 {
     [self.context getList:self.listName

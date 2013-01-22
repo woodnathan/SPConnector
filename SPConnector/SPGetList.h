@@ -22,6 +22,7 @@
 // THE SOFTWARE.
 
 #import "SPListMethod.h"
+#import "SPListField.h"
 
 @class SPList;
 

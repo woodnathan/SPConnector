@@ -28,6 +28,8 @@
 
 #import "SPGetListCollection.h"
 #import "SPGetListItems.h"
+#import "SPGetList.h"
+#import "SPGetAttachmentCollection.h"
 
 #import "SPGetViewCollection.h"
 

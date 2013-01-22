@@ -56,6 +56,7 @@ typedef void(^SPContextRequestSetup)(id requestOperation);
 
 // Lists
 - (void)getListCollection:(void (^)(NSArray *lists))completion;
+- (void)getListWithList:(SPList *)list completion:(void (^)(SPList *list))completion;
 - (void)getList:(NSString *)listName completion:(void (^)(SPList *list))completion;
 - (void)getList:(NSString *)listName items:(void (^)(NSArray *items))completion;
 - (void)getList:(NSString *)listName parentRef:(NSString *)parentRef items:(void (^)(NSArray *items))completion;

@@ -62,7 +62,7 @@
     if (index < 1)
         index = 1;
     
-    NSString *path = [NSString stringWithFormat:@"//soap:Lists/soap:List[%li]/soap:Fields/soap:Field", index];
+    NSString *path = [NSString stringWithFormat:@"//soap:GetListResult/soap:List[%li]/soap:Fields/soap:Field", index];
     NSMutableArray *fields = [[NSMutableArray alloc] init];
     [self.responseMessage enumerateNodesForXPath:path withBlock:^(xmlNodePtr node, BOOL *stop) {
         SPListField *field = [[SPListField alloc] initWithNode:node context:self.context];

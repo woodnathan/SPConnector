@@ -79,27 +79,22 @@
         [self.requestMessage addMethodElementChild:queryOptsRootElement];
     }
     
+    NSPredicate *predicate = self.predicate;
     if (self.parentFileRef)
     {
-        xmlNodePtr queryRootElement = xmlNewNode(NULL, (xmlChar *)"query");
-        xmlNodePtr queryElement = xmlNewNode(NULL, (xmlChar *)"Query");
-        xmlNodePtr whereElement = xmlNewNode(NULL, (xmlChar *)"Where");
-        xmlNodePtr eqElement = xmlNewNode(NULL, (xmlChar *)"Eq");
+        NSPredicate *parentRefPred = [NSPredicate predicateWithFormat:@"FileDirRef = %@", self.parentFileRef];
         
-        xmlNodePtr field = xmlNewNode(NULL, (xmlChar *)"FieldRef");
-        xmlNewProp(field, (xmlChar *)"Name", (xmlChar *)"FileDirRef");
-        xmlNodePtr value = xmlNewNode(NULL, (xmlChar *)"Value");
-        xmlNewProp(value, (xmlChar *)"Type", (xmlChar *)"Text");
-        xmlNodeSetContent(value, (xmlChar *)[self.parentFileRef UTF8String]);
-        
-        xmlAddChild(eqElement, field);
-        xmlAddChild(eqElement, value);
-        
-        xmlAddChild(whereElement, eqElement);
-        xmlAddChild(queryElement, whereElement);
-        xmlAddChild(queryRootElement, queryElement);
-        [self.requestMessage addMethodElementChild:queryRootElement];
+        if (predicate)
+        {
+            NSArray *subpredicates = [NSArray arrayWithObjects:predicate, parentRefPred, nil];
+            predicate = [[NSCompoundPredicate alloc] initWithType:NSAndPredicateType subpredicates:subpredicates];
+        }
+        else
+        {
+            predicate = parentRefPred;
+        }
     }
+    self.predicate = predicate;
 }
 
 - (void)parseResponseMessage
@@ -152,6 +147,11 @@
 - (void)addViewField:(NSString *)field
 {
     [self.viewFieldSet addObject:field];
+}
+
+- (void)addViewFields:(NSArray *)fields
+{
+    [self.viewFieldSet addObjectsFromArray:fields];
 }
 
 - (void)setViewFields:(NSArray *)viewFields

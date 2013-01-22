@@ -25,11 +25,11 @@
 
 @implementation SPListField
 
-@dynamic fieldID, name;
+@dynamic fieldID, name, displayName;
 
 + (NSDictionary *)propertyToAttributeMap
 {
-    return @{ @"fieldID" : @"ID", @"name" : @"Name" };
+    return @{ @"fieldID" : @"ID", @"name" : @"Name", @"displayName" : @"DisplayName" };
 }
 
 @end

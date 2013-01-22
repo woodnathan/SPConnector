@@ -42,6 +42,9 @@
 @property (nonatomic, strong, readonly) SPMessage *requestMessage;
 @property (nonatomic, strong, readonly) SPMessage *responseMessage;
 
+@property (nonatomic, copy) NSPredicate *predicate;
+@property (nonatomic, copy) NSArray *sortDescriptors;
+
 @property (nonatomic, strong, readonly) NSArray *responseObjects;
 
 @property (nonatomic, strong, readonly) NSError *error;

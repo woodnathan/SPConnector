@@ -27,5 +27,6 @@
 
 @property (nonatomic, readonly) NSString *fieldID;
 @property (nonatomic, readonly) NSString *name;
+@property (nonatomic, readonly) NSString *displayName;
 
 @end

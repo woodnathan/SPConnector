@@ -30,6 +30,7 @@
 
 @property (nonatomic, readonly) NSArray *viewFields;
 - (void)addViewField:(NSString *)field;
+- (void)addViewFields:(NSArray *)fields;
 - (void)setViewFields:(NSArray *)viewFields;
 
 @end
