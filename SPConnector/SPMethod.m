@@ -31,7 +31,10 @@
 #import <libxml/xpathInternals.h>
 #import "WNCAMLQuery.h"
 
-@interface SPMethod ()
+@interface SPMethod () {
+@protected
+    WNCAMLQueryOptions *_queryOptions;
+}
 
 @property (nonatomic, assign, readwrite) BOOL isExecuting;
 @property (nonatomic, assign, readwrite) BOOL isFinished;
@@ -91,6 +94,14 @@
         [self finish];
 }
 
+- (WNCAMLQueryOptions *)queryOptions
+{
+    if (self->_queryOptions == nil)
+        self->_queryOptions = [[WNCAMLQueryOptions alloc] init];
+    
+    return self->_queryOptions;
+}
+
 - (void)start
 {
     [self willChangeValueForKey:@"isExecuting"];
@@ -100,7 +111,17 @@
     NSURL *URL = [self.context URLRelativeToSiteWithString:[[self class] endpoint]];
     NSMutableURLRequest *URLRequest = [[NSMutableURLRequest alloc] initWithURL:URL];
     
+    self.queryOptions.dateInUTC = YES;
+    
     [self prepareRequestMessage];
+    
+    xmlNodePtr queryOptsElement = [self->_queryOptions queryOptionsNode];
+    if (queryOptsElement)
+    {
+        xmlNodePtr rootQueryOptsElement = xmlNewNode(NULL, (xmlChar *)"queryOptions");
+        xmlAddChild(rootQueryOptsElement, queryOptsElement);
+        [self.requestMessage addMethodElementChild:rootQueryOptsElement];
+    }
     
     xmlNodePtr queryElement = [WNCAMLQuery queryElementWithPredicate:self.predicate sortDescriptors:self.sortDescriptors];
     if (queryElement)

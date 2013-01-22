@@ -68,17 +68,6 @@
         xmlAddChild(viewFieldsElement, field);
     }];
     
-    /* queryOptions/QueryOptions */
-    {
-        xmlNodePtr queryOptsRootElement = xmlNewNode(NULL, (xmlChar *)"queryOptions");
-        xmlNodePtr queryOptsElement = xmlNewNode(NULL, (xmlChar *)"QueryOptions");
-        xmlNodePtr utcDateElement = xmlNewNode(NULL, (xmlChar *)"DateInUTC");
-        xmlNodeSetContent(utcDateElement, (xmlChar *)"True");
-        xmlAddChild(queryOptsElement, utcDateElement);
-        xmlAddChild(queryOptsRootElement, queryOptsElement);
-        [self.requestMessage addMethodElementChild:queryOptsRootElement];
-    }
-    
     NSPredicate *predicate = self.predicate;
     if (self.parentFileRef)
     {

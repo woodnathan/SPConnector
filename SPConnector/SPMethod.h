@@ -22,6 +22,7 @@
 // THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import "WNCAMLQueryOptions.h"
 
 @class SPContext, SPMessage;
 
@@ -42,6 +43,7 @@
 @property (nonatomic, strong, readonly) SPMessage *requestMessage;
 @property (nonatomic, strong, readonly) SPMessage *responseMessage;
 
+@property (nonatomic, readonly) WNCAMLQueryOptions *queryOptions;
 @property (nonatomic, copy) NSPredicate *predicate;
 @property (nonatomic, copy) NSArray *sortDescriptors;
 
