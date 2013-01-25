@@ -46,6 +46,7 @@
 @property (nonatomic, readonly) WNCAMLQueryOptions *queryOptions;
 @property (nonatomic, copy) NSPredicate *predicate;
 @property (nonatomic, copy) NSArray *sortDescriptors;
+@property (nonatomic, copy) NSString *dateRangeOverlapValue;
 
 @property (nonatomic, strong, readonly) NSArray *responseObjects;
 

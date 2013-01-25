@@ -124,6 +124,41 @@
     }
     
     xmlNodePtr queryElement = [WNCAMLQuery queryElementWithPredicate:self.predicate sortDescriptors:self.sortDescriptors];
+    if (self.dateRangeOverlapValue)
+    {
+        if (queryElement == NULL)
+            queryElement = xmlNewNode(NULL, (xmlChar *)"Query");
+        
+        xmlNodePtr overlap = xmlNewNode(NULL, (xmlChar *)"DateRangesOverlap");
+        xmlNodePtr eventDateField = xmlNewNode(NULL, (xmlChar *)"FieldRef");
+        xmlNewProp(eventDateField, (xmlChar *)"Name", (xmlChar *)"EventDate");
+        xmlAddChild(overlap, eventDateField);
+        xmlNodePtr endDateField = xmlNewNode(NULL, (xmlChar *)"FieldRef");
+        xmlNewProp(endDateField, (xmlChar *)"Name", (xmlChar *)"EndDate");
+        xmlAddChild(overlap, endDateField);
+        xmlNodePtr recurrenceField = xmlNewNode(NULL, (xmlChar *)"FieldRef");
+        xmlNewProp(recurrenceField, (xmlChar *)"Name", (xmlChar *)"RecurrenceID");
+        xmlAddChild(overlap, recurrenceField);
+        xmlNodePtr valueField = xmlNewNode(NULL, (xmlChar *)"Value");
+        xmlNewProp(valueField, (xmlChar *)"Type", (xmlChar *)"DateTime");
+        xmlAddChild(valueField, xmlNewNode(NULL, (xmlChar *)"Week"));
+        xmlAddChild(overlap, valueField);
+        
+        xmlNodePtr currNode = NULL;
+        for (currNode = queryElement->children; currNode != NULL; currNode = currNode->next)
+        {
+            if (xmlStrcmp(currNode->name, (xmlChar *)"Where") == 0)
+                break;
+        }
+        if (currNode == NULL)
+        {
+            currNode = xmlNewNode(NULL, (xmlChar *)"Where");
+            xmlAddChild(queryElement, currNode);
+        }
+        
+        xmlAddChild(currNode, overlap);
+    }
+    
     if (queryElement)
     {
         xmlNodePtr rootQueryElement = xmlNewNode(NULL, (xmlChar *)"query");
