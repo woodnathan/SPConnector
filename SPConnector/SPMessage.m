@@ -94,7 +94,9 @@ static void xmlErrorFunc(void *ctx, const char *msg, ...)
         {
             NSString *reason = [xmlErrorMessage copy];
             [xmlErrorMessage setString:@""];
-            NSDictionary *userInfo = @{ NSLocalizedFailureReasonErrorKey : reason };
+            NSDictionary *userInfo = nil;
+            if (reason != nil)
+                userInfo = @{ NSLocalizedFailureReasonErrorKey : reason };
             *error = [NSError errorWithDomain:@"com.woodnathan.SPConnector"
                                          code:-1
                                      userInfo:userInfo];
