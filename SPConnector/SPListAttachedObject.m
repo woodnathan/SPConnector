@@ -27,7 +27,7 @@
 
 @interface SPListAttachedObject ()
 
-@property (nonatomic, strong, readwrite) NSString *listName;
+@property (nonatomic, copy, readwrite) NSString *listName;
 
 @end
 
@@ -41,7 +41,7 @@
     if (self->_list != list)
     {
         self->_list = list;
-        self->_listName = list.listName;
+        self.listName = list.listName;
     }
 }
 

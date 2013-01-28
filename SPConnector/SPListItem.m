@@ -27,8 +27,8 @@
 
 @implementation SPListItem
 
-@synthesize listName = _listName;
 @dynamic title, filename, URLString, contentType, fileRef, modifiedDate;
+@dynamic itemID, itemUniqueID;
 @dynamic eventStartDate, eventEndDate;
 
 + (NSDictionary *)propertyToAttributeMap

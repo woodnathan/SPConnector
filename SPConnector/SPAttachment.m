@@ -24,13 +24,25 @@
 #import "SPAttachment.h"
 #import <libxml/tree.h>
 
+@interface SPAttachment ()
+
+@property (nonatomic, copy, readwrite) NSString *URLString;
+
+@end
+
+
 @implementation SPAttachment
+
+@synthesize parent = _parent, URLString = _URLString;
 
 - (id)initWithNode:(xmlNodePtr)node context:(SPContext *)context
 {
-    self = [super initWithNode:node context:context];
-    if (self) {
-        printf("%s\r\n", xmlNodeGetContent(node));
+    self = [super init];
+    if (self)
+    {
+        xmlChar *content = xmlNodeGetContent(node);
+        self.URLString = [[[NSString alloc] initWithUTF8String:(const char *)content] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        free(content);
     }
     return self;
 }

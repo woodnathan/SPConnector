@@ -27,7 +27,7 @@
 
 @interface SPListAttachedObject : SPObject
 
-@property (nonatomic, strong, readonly) NSString *listName;
+@property (nonatomic, copy, readonly) NSString *listName;
 
 @property (nonatomic, weak) SPList *list;
 

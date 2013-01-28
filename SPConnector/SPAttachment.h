@@ -29,4 +29,6 @@
 
 @property (nonatomic, weak) SPListItem *parent;
 
+@property (nonatomic, copy, readonly) NSString *URLString;
+
 @end
