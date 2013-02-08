@@ -1,5 +1,5 @@
 //
-//  SPMethod.h
+//  WNSortTransformer.h
 //
 //  Copyright (c) 2013 Nathan Wood (http://www.woodnathan.com/)
 //
@@ -22,37 +22,12 @@
 // THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "SPCAMLQueryOptions.h"
+#import <libxml/tree.h>
 
-@class SPContext, SPMessage;
+@interface SPSortTransformer : NSObject
 
-@interface SPMethod : NSOperation {
-@protected
-    NSArray *_responseObjects;
-}
-
-+ (NSString *)method;
-+ (NSString *)endpoint;
-+ (NSString *)objectPath;
-+ (Class)objectClass;
-
-- (id)initWithContext:(SPContext *)context;
-
-@property (nonatomic, weak, readonly) SPContext *context;
-
-@property (nonatomic, strong, readonly) SPMessage *requestMessage;
-@property (nonatomic, strong, readonly) SPMessage *responseMessage;
-
-@property (nonatomic, readonly) SPCAMLQueryOptions *queryOptions;
-@property (nonatomic, copy) NSPredicate *predicate;
-@property (nonatomic, copy) NSArray *sortDescriptors;
-@property (nonatomic, copy) NSString *dateRangeOverlapValue;
-
-@property (nonatomic, strong, readonly) NSArray *responseObjects;
-
-@property (nonatomic, strong, readonly) NSError *error;
-
-- (void)prepareRequestMessage;
-- (void)parseResponseMessage;
++ (xmlNodePtr)transformSortDescriptorsIntoOrderElement:(NSArray *)descriptors;
++ (xmlNodePtr)transformSortDescriptorsIntoOrderElement:(NSArray *)descriptors fields:(NSArray *)fields;
++ (xmlNodePtr)transformSortDescriptorsIntoOrderElement:(NSArray *)descriptors mapping:(NSDictionary *)mapping;
 
 @end

@@ -33,7 +33,7 @@
 
 @interface SPMethod () {
 @protected
-    WNCAMLQueryOptions *_queryOptions;
+    SPCAMLQueryOptions *_queryOptions;
 }
 
 @property (nonatomic, assign, readwrite) BOOL isExecuting;
@@ -104,10 +104,10 @@
         [self finish];
 }
 
-- (WNCAMLQueryOptions *)queryOptions
+- (SPCAMLQueryOptions *)queryOptions
 {
     if (self->_queryOptions == nil)
-        self->_queryOptions = [[WNCAMLQueryOptions alloc] init];
+        self->_queryOptions = [[SPCAMLQueryOptions alloc] init];
     
     return self->_queryOptions;
 }
