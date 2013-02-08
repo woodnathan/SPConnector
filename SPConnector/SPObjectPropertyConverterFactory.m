@@ -1,5 +1,5 @@
 //
-//  SPGetWebCollection.m
+//  SPObjectPropertyConverterBase.m
 //
 //  Copyright (c) 2013 Nathan Wood (http://www.woodnathan.com/)
 //
@@ -21,23 +21,47 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "SPGetWebCollection.h"
+#import "SPObjectPropertyConverterFactory.h"
 
-@implementation SPGetWebCollection
+NSString *const SPObjectDefaultPropertyConverterKey = @"kDefault";
 
-+ (NSString *)method
+
+@interface SPObjectPropertyConverterFactory ()
+
++ (NSMutableDictionary *)converters;
+
+@end
+
+
+@implementation SPObjectPropertyConverterFactory
+
++ (NSMutableDictionary *)converters
 {
-    return @"GetWebCollection";
+    static __DISPATCH_ONCE__ NSMutableDictionary *_converters = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _converters = [[NSMutableDictionary alloc] init];
+    });
+    return _converters;
 }
 
-+ (NSString *)objectPath
++ (BOOL)registerConverter:(id <SPObjectPropertyConverter>)converter forType:(NSString *)type
 {
-    return @"//soap:Webs/soap:Web";
+    if (converter != nil && [converter conformsToProtocol:@protocol(SPObjectPropertyConverter)])
+    {
+        [[self converters] setObject:converter forKey:type];
+        return YES;
+    }
+    return NO;
 }
 
-+ (Class)objectClass
++ (id <SPObjectPropertyConverter>)converterForType:(NSString *)type
 {
-    return [SPWeb class];
+    id propConverter = nil;
+    if (type == nil || (propConverter = [[self converters] objectForKey:type]) == nil)
+        propConverter = [[self converters] objectForKey:SPObjectDefaultPropertyConverterKey];
+    
+    return propConverter;
 }
 
 @end

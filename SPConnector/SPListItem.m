@@ -27,18 +27,15 @@
 
 @implementation SPListItem
 
+@dynamic itemID, itemUniqueID;
 @dynamic title, filename, URLString, contentType, fileRef, modifiedDate;
 @dynamic itemID, itemUniqueID;
 @dynamic eventStartDate, eventEndDate;
+@synthesize parent = _parent, children = _children, attachments = _attachments;
 
 + (NSDictionary *)propertyToAttributeMap
 {
     return @{ @"title" : @"ows_Title", @"filename" : @"ows_LinkFilename", @"URLString" : @"ows_EncodedAbsUrl", @"contentType" : @"ows_ContentType", @"fileRef" : @"ows_FileRef", @"modifiedDate" : @"ows_Modified", @"itemID" : @"ows_ID", @"itemUniqueID" : @"ows_UniqueId", @"eventStartDate" : @"ows_EventDate", @"eventEndDate" : @"ows_EndDate" };
-}
-
-+ (NSArray *)dateProperties
-{
-    return @[ @"modifiedDate", @"eventStartDate", @"eventEndDate" ];
 }
 
 - (void)dealloc

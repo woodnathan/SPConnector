@@ -29,7 +29,6 @@
 @interface SPObject : NSObject
 
 + (NSDictionary *)propertyToAttributeMap;
-+ (NSArray *)dateProperties;
 
 - (id)initWithNode:(xmlNodePtr)node context:(SPContext *)context;
 

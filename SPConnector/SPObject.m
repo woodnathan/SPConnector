@@ -25,6 +25,31 @@
 #import <libxml/tree.h>
 #import <objc/runtime.h>
 #import "SPContext.h"
+#import "SPObjectPropertyConverterFactory.h"
+
+typedef enum {
+    SPObjectPropertyTypeDefault = 0
+} SPObjectPropertyType;
+
+static const char *property_getType(objc_property_t property)
+{
+    const char *attributes = property_getAttributes(property);
+    char buffer[1 + strlen(attributes)];
+    strcpy(buffer, attributes);
+    char *state = buffer, *attribute;
+    while ((attribute = strsep(&state, ",")) != NULL) {
+        if (attribute[0] == 'T' && attribute[1] != '@') {
+            return (const char *)[[NSData dataWithBytes:(attribute + 1) length:strlen(attribute) - 1] bytes];
+        }
+        else if (attribute[0] == 'T' && attribute[1] == '@' && strlen(attribute) == 2) {
+            return "id";
+        }
+        else if (attribute[0] == 'T' && attribute[1] == '@') {
+            return (const char *)[[NSData dataWithBytes:(attribute + 3) length:strlen(attribute) - 4] bytes];
+        }
+    }
+    return "";
+}
 
 @interface SPObject () {
     xmlNodePtr _xmlNode;
@@ -35,14 +60,14 @@
 
 - (id)primitiveValueForKey:(NSString *)key;
 
-+ (NSDate *)dateFromString:(NSString *)string;
-
 - (void)contextWillBeDeallocated:(NSNotification *)notification;
 
 @end
 
 
 @implementation SPObject
+
+@synthesize context = _context;
 
 - (id)initWithNode:(xmlNodePtr)node context:(SPContext *)context
 {
@@ -81,22 +106,6 @@
 {
     return nil;
 }
-+ (NSArray *)dateProperties
-{
-    return nil;
-}
-
-+ (NSDate *)dateFromString:(NSString *)string
-{
-    static __DISPATCH_ONCE__ NSDateFormatter *formatter = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        formatter = [[NSDateFormatter alloc] init];
-        formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-    });
-    
-    return [formatter dateFromString:string];
-}
 
 - (NSMutableDictionary *)backingStore
 {
@@ -125,7 +134,8 @@
     return ret;
 }
 
-NSString *fastGetter(id self, SEL _cmd) {
+NSString *fastGetter(id self, SEL _cmd)
+{
     NSString *key = NSStringFromSelector(_cmd);
     id val = [[self backingStore] objectForKey:key];
     if (val == nil)
@@ -147,19 +157,24 @@ NSString *fastGetter(id self, SEL _cmd) {
             {
                 id owsKey = [NSString stringWithFormat:@"ows_%@", key];
                 
-                if ((retVal = [self primitiveValueForKey:owsKey]) == nil)
-                {
-                    return nil;
-                }
+                retVal = [self primitiveValueForKey:owsKey];
             }
         }
+        
+        objc_property_t prop = class_getProperty([self class], [key UTF8String]);
+        if (prop == nil)
+            return nil;
+        NSString *type = [NSString stringWithUTF8String:property_getType(prop)];
+        id <SPObjectPropertyConverter> converter = [SPObjectPropertyConverterFactory converterForType:type];
+        
+        if (retVal == nil)
+            return [converter valueForNil];
         
         NSRange range = [retVal rangeOfString:@"#;"];
         if (range.location != NSNotFound)
             retVal = [retVal substringFromIndex:(range.location + range.length)];
         
-        if ([[[self class] dateProperties] containsObject:key])
-            retVal = [[self class] dateFromString:retVal];
+        retVal = [converter valueForString:retVal];
         
         [self.backingStore setObject:retVal forKey:key];
         

@@ -37,6 +37,9 @@
 
 @implementation SPGetListItems
 
+@synthesize viewFieldSet = _viewFieldSet;
+@synthesize parentFileRef = _parentFileRef;
+
 + (NSString *)method
 {
     return @"GetListItems";

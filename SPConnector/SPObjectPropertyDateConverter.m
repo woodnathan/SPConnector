@@ -1,5 +1,5 @@
 //
-//  SPGetWebCollection.m
+//  SPObjectPropertyDateConverter.m
 //
 //  Copyright (c) 2013 Nathan Wood (http://www.woodnathan.com/)
 //
@@ -21,23 +21,46 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "SPGetWebCollection.h"
+#import "SPObjectPropertyDateConverter.h"
+#import "SPObjectPropertyConverterFactory.h"
 
-@implementation SPGetWebCollection
 
-+ (NSString *)method
+@interface SPObjectPropertyDateConverter ()
+
++ (NSDateFormatter *)formatter;
+
+@end
+
+
+@implementation SPObjectPropertyDateConverter
+
++ (void)load
 {
-    return @"GetWebCollection";
+    id <SPObjectPropertyConverter> conv = [[self alloc] init];
+    [SPObjectPropertyConverterFactory registerConverter:conv forType:@"NSDate"];
 }
 
-+ (NSString *)objectPath
++ (NSDateFormatter *)formatter
 {
-    return @"//soap:Webs/soap:Web";
+    static __DISPATCH_ONCE__ NSDateFormatter *formatter = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    });
+    
+    return formatter;
 }
 
-+ (Class)objectClass
+- (id)valueForString:(NSString *)str
 {
-    return [SPWeb class];
+    return [[[self class] formatter] dateFromString:str];
+}
+
+- (id)valueForNil
+{
+    return nil;
 }
 
 @end

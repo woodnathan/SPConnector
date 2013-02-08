@@ -26,6 +26,8 @@
 
 @implementation SPGetAttachmentCollection
 
+@synthesize listItemID = _listItemID;
+
 + (NSString *)method
 {
     return @"GetAttachmentCollection";

@@ -21,12 +21,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "SPObject.h"
+#import "SPListAttachedObject.h"
 
-@interface SPListField : SPObject
+@interface SPListField : SPListAttachedObject
 
 @property (nonatomic, readonly) NSString *fieldID;
 @property (nonatomic, readonly) NSString *name;
 @property (nonatomic, readonly) NSString *displayName;
+
+@property (nonatomic, readonly) NSString *type;
+@property (nonatomic, readonly) BOOL required;
+
+@property (nonatomic, readonly) NSNumber *min;
+@property (nonatomic, readonly) NSNumber *max;
 
 @end

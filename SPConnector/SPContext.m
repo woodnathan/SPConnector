@@ -38,6 +38,10 @@ NSString *const SPContextWillBeDeallocated = @"kSPContextWillBeDeallocated";
 
 @implementation SPContext
 
+@synthesize siteURL = _siteURL;
+@synthesize requestOperationClass = _requestOperationClass, requestSetupBlock = _requestSetupBlock;
+@synthesize methodQueue = _methodQueue;
+
 - (id)initWithSiteURL:(NSURL *)url
 {
     self = [super init];

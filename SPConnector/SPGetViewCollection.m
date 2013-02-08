@@ -26,6 +26,8 @@
 
 @implementation SPGetViewCollection
 
+@synthesize listName = _listName;
+
 + (NSString *)method
 {
     return @"GetViewCollection";

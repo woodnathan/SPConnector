@@ -1,5 +1,5 @@
 //
-//  SPGetWebCollection.m
+//  SPObjectPropertyNumberConverter.m
 //
 //  Copyright (c) 2013 Nathan Wood (http://www.woodnathan.com/)
 //
@@ -21,23 +21,47 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "SPGetWebCollection.h"
+#import "SPObjectPropertyNumberConverter.h"
+#import "SPObjectPropertyConverterFactory.h"
 
-@implementation SPGetWebCollection
 
-+ (NSString *)method
+@interface SPObjectPropertyNumberConverter ()
+
++ (NSNumberFormatter *)formatter;
+
+@end
+
+
+@implementation SPObjectPropertyNumberConverter
+
++ (void)load
 {
-    return @"GetWebCollection";
+    id <SPObjectPropertyConverter> conv = [[self alloc] init];
+    [SPObjectPropertyConverterFactory registerConverter:conv forType:@"NSNumber"];
+    [SPObjectPropertyConverterFactory registerConverter:conv forType:[NSString stringWithUTF8String:@encode(int)]];
 }
 
-+ (NSString *)objectPath
++ (NSNumberFormatter *)formatter
 {
-    return @"//soap:Webs/soap:Web";
+    static __DISPATCH_ONCE__ NSNumberFormatter *formatter = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        formatter = [[NSNumberFormatter alloc] init];
+        formatter.numberStyle = NSNumberFormatterDecimalStyle;
+    });
+    
+    return formatter;
 }
 
-+ (Class)objectClass
+- (id)valueForString:(NSString *)str
 {
-    return [SPWeb class];
+    return [[[self class] formatter] numberFromString:str];
+}
+
+- (id)valueForNil
+{
+    return [NSNumber numberWithInt:0];
 }
 
 @end

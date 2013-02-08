@@ -1,5 +1,5 @@
 //
-//  SPGetWebCollection.m
+//  SPObjectPropertyBooleanConverter.m
 //
 //  Copyright (c) 2013 Nathan Wood (http://www.woodnathan.com/)
 //
@@ -21,23 +21,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "SPGetWebCollection.h"
+#import "SPObjectPropertyBooleanConverter.h"
+#import "SPObjectPropertyConverterFactory.h"
 
-@implementation SPGetWebCollection
+@implementation SPObjectPropertyBooleanConverter
 
-+ (NSString *)method
++ (void)load
 {
-    return @"GetWebCollection";
+    id <SPObjectPropertyConverter> conv = [[self alloc] init];
+    [SPObjectPropertyConverterFactory registerConverter:conv forType:[NSString stringWithUTF8String:@encode(BOOL)]];
 }
 
-+ (NSString *)objectPath
+- (id)valueForString:(NSString *)str
 {
-    return @"//soap:Webs/soap:Web";
+    return [NSNumber numberWithBool:[str boolValue]];
 }
 
-+ (Class)objectClass
+- (id)valueForNil
 {
-    return [SPWeb class];
+    return [NSNumber numberWithBool:NO];
 }
 
 @end

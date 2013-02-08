@@ -56,6 +56,16 @@
 
 @implementation SPMethod
 
+@synthesize context = _context;
+@synthesize requestMessage = _requestMessage, responseMessage = _responseMessage;
+@synthesize queryOptions = _queryOptions;
+@synthesize predicate = _predicate, sortDescriptors = _sortDescriptors;
+@synthesize dateRangeOverlapValue = _dateRangeOverlapValue;
+@synthesize responseObjects = _responseObjects;
+@synthesize error = _error;
+@synthesize isExecuting = _isExecuting, isFinished = _isFinished;
+@synthesize requestOperation = _requestOperation;
+
 - (id)initWithContext:(SPContext *)context
 {
     self = [super init];

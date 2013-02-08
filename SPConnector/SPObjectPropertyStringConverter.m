@@ -1,5 +1,5 @@
 //
-//  SPGetWebCollection.m
+//  SPObjectPropertyStringConverter.m
 //
 //  Copyright (c) 2013 Nathan Wood (http://www.woodnathan.com/)
 //
@@ -21,23 +21,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "SPGetWebCollection.h"
+#import "SPObjectPropertyStringConverter.h"
+#import "SPObjectPropertyConverterFactory.h"
 
-@implementation SPGetWebCollection
+@implementation SPObjectPropertyStringConverter
 
-+ (NSString *)method
++ (void)load
 {
-    return @"GetWebCollection";
+    id <SPObjectPropertyConverter> conv = [[self alloc] init];
+    [SPObjectPropertyConverterFactory registerConverter:conv forType:@"NSString"];
+    [SPObjectPropertyConverterFactory registerConverter:conv forType:SPObjectDefaultPropertyConverterKey];
 }
 
-+ (NSString *)objectPath
+- (id)valueForString:(NSString *)str
 {
-    return @"//soap:Webs/soap:Web";
+    return str;
 }
 
-+ (Class)objectClass
+- (id)valueForNil
 {
-    return [SPWeb class];
+    return nil;
 }
 
 @end
