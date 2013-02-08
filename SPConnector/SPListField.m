@@ -26,13 +26,13 @@
 @implementation SPListField
 
 @dynamic fieldID, name, displayName;
-@dynamic type, required;
+@dynamic type, required, readOnly;
 @dynamic min, max;
 
 + (NSDictionary *)propertyToAttributeMap
 {
     return @{ @"fieldID" : @"ID", @"name" : @"Name", @"displayName" : @"DisplayName",
-              @"type" : @"Type", @"required" : @"Required",
+              @"type" : @"Type", @"required" : @"Required", @"readOnly" : @"ReadOnly",
               @"min" : @"Min", @"max" : @"Max" };
 }
 

@@ -31,6 +31,7 @@
 
 @property (nonatomic, readonly) NSString *type;
 @property (nonatomic, readonly) BOOL required;
+@property (nonatomic, readonly) BOOL readOnly;
 
 @property (nonatomic, readonly) NSNumber *min;
 @property (nonatomic, readonly) NSNumber *max;
