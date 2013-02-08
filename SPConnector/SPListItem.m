@@ -29,7 +29,6 @@
 
 @dynamic itemID, itemUniqueID;
 @dynamic title, filename, URLString, contentType, fileRef, modifiedDate;
-@dynamic itemID, itemUniqueID;
 @dynamic eventStartDate, eventEndDate;
 @synthesize parent = _parent, children = _children, attachments = _attachments;
 
