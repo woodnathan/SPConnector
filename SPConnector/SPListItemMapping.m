@@ -15,10 +15,9 @@
     self = [super init];
     if (self)
     {
-        [self mapKeyPath:@"title" toAttribute:@"ows_Title"];
         [self mapKeyPath:@"itemID" toAttribute:@"ows_ID"];
         [self mapKeyPath:@"itemUniqueID" toAttribute:@"ows_UniqueId"];
-        
+        [self mapKeyPath:@"title" toAttribute:@"ows_Title"];
         [self mapKeyPath:@"contentType" toAttribute:@"ows_ContentType"];
     }
     return self;

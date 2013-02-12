@@ -31,14 +31,7 @@
 @property (nonatomic, readonly) NSString *itemUniqueID;
 
 @property (nonatomic, readonly) NSString *title;
-@property (nonatomic, readonly) NSString *filename;
-@property (nonatomic, readonly) NSString *URLString;
 @property (nonatomic, readonly) NSString *contentType;
-@property (nonatomic, readonly) NSString *fileRef;
-@property (nonatomic, readonly) NSDate *modifiedDate;
-
-@property (nonatomic, readonly) NSDate *eventStartDate;
-@property (nonatomic, readonly) NSDate *eventEndDate;
 
 @property (nonatomic, weak) SPListItem *parent;
 @property (nonatomic, copy) NSArray *children;

@@ -12,7 +12,6 @@
 @interface SPObjectMappingBase : NSObject <SPObjectMapping>
 
 - (void)mapKeyPath:(NSString *)keyPath toAttribute:(NSString *)attribute;
-- (void)mapKeyPath:(NSString *)keyPath toField:(NSString *)field;
 - (void)removeMappingForKeyPath:(NSString *)keyPath;
 
 @end

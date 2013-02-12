@@ -33,11 +33,6 @@
     [self.attributeMappings setObject:attribute forKey:keyPath];
 }
 
-- (void)mapKeyPath:(NSString *)keyPath toField:(NSString *)field
-{
-    [self mapKeyPath:keyPath toAttribute:[NSString stringWithFormat:@"ows_%@", field]];
-}
-
 - (void)removeMappingForKeyPath:(NSString *)keyPath
 {
     [self.attributeMappings removeObjectForKey:keyPath];

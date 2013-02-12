@@ -11,5 +11,7 @@
 @interface SPListDocumentItem : SPListItem
 
 @property (nonatomic, readonly) NSString *baseName;
+@property (nonatomic, readonly) NSString *filename;
+@property (nonatomic, readonly) NSString *URLString;
 
 @end
