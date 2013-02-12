@@ -23,15 +23,18 @@
 
 #import "SPList.h"
 #import "SPListAttachedObject.h"
+#import "SPListMapping.h"
 
 @implementation SPList
 
 @synthesize items = _items, fields = _fields, views = _views;
 @dynamic title, identifier, listName;
 
-+ (NSDictionary *)propertyToAttributeMap
++ (void)initialize
 {
-    return @{ @"identifier" : @"ID", @"title" : @"Title", @"listName" : @"Name" };
+    if (self == [SPList class])
+        [SPObjectMappingFactory registerObjectMapping:[[SPListMapping alloc] init]
+                                             forClass:self];
 }
 
 - (void)dealloc

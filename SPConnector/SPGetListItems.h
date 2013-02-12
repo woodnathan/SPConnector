@@ -24,7 +24,12 @@
 #import "SPListMethod.h"
 #import "SPListItem.h"
 
+extern NSString * const SPListItemDefaultContentTypeClassKey;
+
 @interface SPGetListItems : SPListMethod
+
++ (void)registerClass:(Class)objectClass forContentType:(NSString *)contentType;
++ (Class)objectClassForContentType:(NSString *)contentType;
 
 @property (nonatomic, copy) NSString *parentFileRef;
 

@@ -28,6 +28,7 @@
 #import "SPGetList.h"
 #import "SPGetListItems.h"
 #import "SPGetAttachmentCollection.h"
+#import "SPUpdateListItems.h"
 
 #import "SPGetViewCollection.h"
 
@@ -166,6 +167,16 @@
                    setup:^(SPGetAttachmentCollection *op) {
                        op.listName = listName;
                        op.listItemID = itemID;
+                   }
+              completion:completion];
+}
+
+- (void)createList:(NSString *)listName itemWithFields:(NSDictionary *)fields results:(void (^)(NSArray *results))completion
+{
+    [self methodForClass:[SPUpdateListItems class]
+                   setup:^(SPUpdateListItems *op) {
+                       op.listName = listName;
+                       [op.batch createWithFields:fields];
                    }
               completion:completion];
 }

@@ -22,6 +22,7 @@
 // THE SOFTWARE.
 
 #import "SPListField.h"
+#import "SPListFieldMapping.h"
 
 @implementation SPListField
 
@@ -29,11 +30,11 @@
 @dynamic type, required, readOnly;
 @dynamic min, max;
 
-+ (NSDictionary *)propertyToAttributeMap
++ (void)initialize
 {
-    return @{ @"fieldID" : @"ID", @"name" : @"Name", @"displayName" : @"DisplayName",
-              @"type" : @"Type", @"required" : @"Required", @"readOnly" : @"ReadOnly",
-              @"min" : @"Min", @"max" : @"Max" };
+    if (self == [SPListField class])
+        [SPObjectMappingFactory registerObjectMapping:[[SPListFieldMapping alloc] init]
+                                             forClass:self];
 }
 
 @end

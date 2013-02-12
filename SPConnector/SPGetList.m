@@ -29,7 +29,7 @@
 
 @interface SPGetList ()
 
-- (NSArray *)responseListFieldsWithListIndex:(NSInteger)index;
+- (NSArray *)responseListFields;
 
 @end
 
@@ -57,11 +57,8 @@
     }
 }
 
-- (NSArray *)responseListFieldsWithListIndex:(NSInteger)index
+- (NSArray *)responseListFields
 {
-    if (index < 1)
-        index = 1;
-    
     NSString *path = @"//soap:Fields/soap:Field";
     NSMutableArray *fields = [[NSMutableArray alloc] init];
     [self.responseMessage enumerateNodesForXPath:path withBlock:^(xmlNodePtr node, BOOL *stop) {
@@ -78,7 +75,7 @@
     if (self.list != nil)
     {
         list = self.list;
-        list.fields = [self responseListFieldsWithListIndex:1];
+        list.fields = [self responseListFields];
     }
     else
     {
@@ -86,7 +83,7 @@
         [self.responseMessage enumerateNodesForXPath:path withBlock:^(xmlNodePtr node, BOOL *stop) {
             list = [[SPList alloc] initWithNode:node context:self.context];
             
-            list.fields = [self responseListFieldsWithListIndex:1];
+            list.fields = [self responseListFields];
             
             *stop = YES;
         }];

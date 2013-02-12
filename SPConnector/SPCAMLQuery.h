@@ -1,5 +1,5 @@
 //
-//  WNCAMLQuery.h
+//  SPCAMLQuery.h
 //
 //  Copyright (c) 2013 Nathan Wood (http://www.woodnathan.com/)
 //

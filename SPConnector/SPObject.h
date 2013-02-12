@@ -23,17 +23,16 @@
 
 #import <Foundation/Foundation.h>
 #import <libxml/tree.h>
+#import "SPObjectMappingFactory.h"
 
 @class SPContext;
 
 @interface SPObject : NSObject
 
-+ (NSDictionary *)propertyToAttributeMap;
-
 - (id)initWithNode:(xmlNodePtr)node context:(SPContext *)context;
 
 @property (nonatomic, weak, readonly) SPContext *context;
 
-- (NSDictionary *)dumpProperties;
+- (NSDictionary *)dumpAttributes;
 
 @end

@@ -22,14 +22,17 @@
 // THE SOFTWARE.
 
 #import "SPWeb.h"
+#import "SPWebMapping.h"
 
 @implementation SPWeb
 
 @dynamic title, URLString;
 
-+ (NSDictionary *)propertyToAttributeMap
++ (void)initialize
 {
-    return @{ @"title" : @"Title", @"URLString" : @"Url" };
+    if (self == [SPWeb class])
+        [SPObjectMappingFactory registerObjectMapping:[[SPWebMapping alloc] init]
+                                             forClass:self];
 }
 
 @end

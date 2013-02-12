@@ -23,12 +23,15 @@
 
 #import "SPGetListItems.h"
 #import "SPMessage.h"
+#import "SPListItem.h"
 
 
-#define kPrepareResponseCapacity 0
+NSString * const SPListItemDefaultContentTypeClassKey = @"kDefaultListItem";
 
 
 @interface SPGetListItems ()
+
++ (NSMutableDictionary *)contentTypeClassMappings;
 
 @property (nonatomic, strong) NSMutableSet *viewFieldSet;
 
@@ -39,6 +42,37 @@
 
 @synthesize viewFieldSet = _viewFieldSet;
 @synthesize parentFileRef = _parentFileRef;
+
++ (NSMutableDictionary *)contentTypeClassMappings
+{
+    static __DISPATCH_ONCE__ NSMutableDictionary *contentTypeMappings = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        contentTypeMappings = [[NSMutableDictionary alloc] init];
+        
+        [contentTypeMappings setObject:[SPListItem class] forKey:SPListItemDefaultContentTypeClassKey];
+    });
+    
+    return contentTypeMappings;
+}
+
++ (void)registerClass:(Class)objectClass forContentType:(NSString *)contentType
+{
+    [[self contentTypeClassMappings] setObject:objectClass forKey:contentType];
+}
+
++ (Class)objectClassForContentType:(NSString *)contentType
+{
+    if (contentType == nil)
+        contentType = SPListItemDefaultContentTypeClassKey;
+    
+    Class objectClass = [[self contentTypeClassMappings] objectForKey:contentType];
+    if (objectClass == Nil)
+        objectClass = [[self contentTypeClassMappings] objectForKey:SPListItemDefaultContentTypeClassKey];
+    
+    return objectClass;
+}
 
 + (NSString *)method
 {
@@ -91,28 +125,22 @@
 
 - (void)parseResponseMessage
 {
-#if kPrepareResponseCapacity
-    __block NSUInteger itemCount = 0;
-    [self.responseMessage enumerateRowNodesForXPath:@"//rs:data" withBlock:^(xmlNodePtr node, BOOL *stop) {
-        xmlAttr *countAttr = xmlHasProp(node, (const xmlChar *)"ItemCount");
-        if (countAttr)
-        {
-            char *countContent = (char *)xmlNodeGetContent((xmlNodePtr)countAttr);
-            itemCount = atoi(countContent);
-            xmlFree(countContent);
-            
-            *stop = YES;
-        }
-    }];
-    
-    NSMutableArray *objects = [[NSMutableArray alloc] initWithCapacity:itemCount];
-#else
     NSMutableArray *objects = [[NSMutableArray alloc] init];
-#endif
     
     NSString *path = [[self class] objectPath];
     [self.responseMessage enumerateRowNodesForXPath:path withBlock:^(xmlNodePtr node, BOOL *stop) {
-        id obj = [[[self class] objectClass] alloc];
+        xmlAttrPtr contentTypeAttr = xmlHasProp(node, (const xmlChar *)"ows_ContentType");
+        NSString *contentType = nil;
+        if (contentTypeAttr != NULL)
+        {
+            char *attrContent = (char *)xmlNodeGetContent((xmlNodePtr)contentTypeAttr);
+            contentType = [[NSString alloc] initWithUTF8String:attrContent];
+            xmlFree(attrContent);
+        }
+        
+        Class objectClass = [[self class] objectClassForContentType:contentType];
+        
+        id obj = [objectClass alloc];
         obj = [obj initWithNode:node context:self.context];
         [obj setListName:self.listName];
         [objects addObject:obj];
@@ -130,10 +158,9 @@
 
 - (NSMutableSet *)viewFieldSet
 {
-    if (_viewFieldSet == nil)
-        _viewFieldSet = [[NSMutableSet alloc] initWithObjects:@"Title", @"LinkFilename",
-                         @"EncodedAbsUrl", @"ContentType", @"FileRef", @"FileDirRef", @"MetaInfo", nil];
-    return _viewFieldSet;
+    if (self->_viewFieldSet == nil)
+        self->_viewFieldSet = [[NSMutableSet alloc] init];
+    return self->_viewFieldSet;
 }
 
 - (void)addViewField:(NSString *)field
@@ -148,7 +175,7 @@
 
 - (void)setViewFields:(NSArray *)viewFields
 {
-    _viewFieldSet = [[NSMutableSet alloc] initWithArray:viewFields];
+    self->_viewFieldSet = [[NSMutableSet alloc] initWithArray:viewFields];
 }
 
 @end

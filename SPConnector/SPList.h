@@ -37,6 +37,8 @@
 
 @interface SPList (Operations)
 
+- (void)createItemWithFields:(NSDictionary *)fields completion:(void (^)(NSArray *results))completion;
+
 - (void)loadItems:(void (^)(NSArray *items))completion;
 - (void)loadFields:(void (^)(NSArray *fields))completion;
 - (void)loadViews:(void (^)(NSArray *views))completion;

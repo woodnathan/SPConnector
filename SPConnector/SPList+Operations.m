@@ -26,6 +26,13 @@
 
 @implementation SPList (Operations)
 
+- (void)createItemWithFields:(NSDictionary *)fields completion:(void (^)(NSArray *results))completion
+{
+    [self.context createList:self.listName
+              itemWithFields:fields
+                     results:completion];
+}
+
 - (void)loadItems:(void (^)(NSArray *items))completion
 {
     [self.context getList:self.listName

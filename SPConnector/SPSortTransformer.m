@@ -1,5 +1,5 @@
 //
-//  WNSortTransformer.m
+//  SPSortTransformer.m
 //
 //  Copyright (c) 2013 Nathan Wood (http://www.woodnathan.com/)
 //

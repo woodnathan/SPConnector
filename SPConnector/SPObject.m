@@ -53,10 +53,11 @@ static const char *property_getType(objc_property_t property)
 
 @interface SPObject () {
     xmlNodePtr _xmlNode;
-    NSMutableDictionary *_backingStore;
 }
 
 @property (nonatomic, readonly) NSMutableDictionary *backingStore;
+
+@property (nonatomic, readonly) id <SPObjectMapping> objectMapping;
 
 - (id)primitiveValueForKey:(NSString *)key;
 
@@ -68,6 +69,8 @@ static const char *property_getType(objc_property_t property)
 @implementation SPObject
 
 @synthesize context = _context;
+@synthesize backingStore = _backingStore;
+@synthesize objectMapping = _objectMapping;
 
 - (id)initWithNode:(xmlNodePtr)node context:(SPContext *)context
 {
@@ -75,8 +78,8 @@ static const char *property_getType(objc_property_t property)
     if (self)
     {
         // Recursively copy the node with properties and namespaces
-        _xmlNode = xmlCopyNode((xmlNodePtr)node, 2);
-        if (_xmlNode == NULL)
+        self->_xmlNode = xmlCopyNode((xmlNodePtr)node, 2);
+        if (self->_xmlNode == NULL)
             return nil;
         
         _context = context;
@@ -102,16 +105,18 @@ static const char *property_getType(objc_property_t property)
         _context = nil;
 }
 
-+ (NSDictionary *)propertyToAttributeMap
-{
-    return nil;
-}
-
 - (NSMutableDictionary *)backingStore
 {
-    if (_backingStore == nil)
-        _backingStore = [[NSMutableDictionary alloc] init];
-    return _backingStore;
+    if (self->_backingStore == nil)
+        self->_backingStore = [[NSMutableDictionary alloc] init];
+    return self->_backingStore;
+}
+
+- (id <SPObjectMapping>)objectMapping
+{
+    if (self->_objectMapping == nil)
+        self->_objectMapping = [SPObjectMappingFactory objectMappingForClass:[self class]];
+    return self->_objectMapping;
 }
 
 - (void)forwardInvocation:(NSInvocation *)anInvocation
@@ -151,7 +156,7 @@ NSString *fastGetter(id self, SEL _cmd)
     {
         if ((retVal = [self primitiveValueForKey:key]) == nil)
         {
-            id mappedKey = [[[self class] propertyToAttributeMap] objectForKey:key];
+            id mappedKey = [self.objectMapping attributeForKeyPath:key];
             
             if ((retVal = [self primitiveValueForKey:mappedKey]) == nil)
             {
@@ -188,7 +193,7 @@ NSString *fastGetter(id self, SEL _cmd)
 
 - (id)primitiveValueForKey:(NSString *)key
 {
-    xmlAttrPtr attr = xmlHasProp(_xmlNode, (xmlChar *)[key UTF8String]);
+    xmlAttrPtr attr = xmlHasProp(self->_xmlNode, (xmlChar *)[key UTF8String]);
     
     if (attr)
     {
@@ -202,14 +207,14 @@ NSString *fastGetter(id self, SEL _cmd)
     return nil;
 }
 
-- (NSDictionary *)dumpProperties
+- (NSDictionary *)dumpAttributes
 {
     NSMutableDictionary *props = [[NSMutableDictionary alloc] init];
     for (xmlAttrPtr attr = _xmlNode->properties; attr != NULL; attr = attr->next)
     {
         NSString *key = [[NSString alloc] initWithUTF8String:(const char *)attr->name];
         char *content = (char *)xmlNodeGetContent((xmlNodePtr)attr);
-        NSString *value = [[NSString alloc] initWithCString:content encoding:NSUTF8StringEncoding];
+        NSString *value = [[NSString alloc] initWithUTF8String:content];
         xmlFree(content);
         
         [props setObject:value forKey:key];

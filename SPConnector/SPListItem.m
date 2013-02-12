@@ -24,6 +24,7 @@
 
 #import "SPListItem.h"
 #import "SPContext.h"
+#import "SPListItemMapping.h"
 
 @implementation SPListItem
 
@@ -32,9 +33,11 @@
 @dynamic eventStartDate, eventEndDate;
 @synthesize parent = _parent, children = _children, attachments = _attachments;
 
-+ (NSDictionary *)propertyToAttributeMap
++ (void)initialize
 {
-    return @{ @"title" : @"ows_Title", @"filename" : @"ows_LinkFilename", @"URLString" : @"ows_EncodedAbsUrl", @"contentType" : @"ows_ContentType", @"fileRef" : @"ows_FileRef", @"modifiedDate" : @"ows_Modified", @"itemID" : @"ows_ID", @"itemUniqueID" : @"ows_UniqueId", @"eventStartDate" : @"ows_EventDate", @"eventEndDate" : @"ows_EndDate" };
+    if (self == [SPListItem class])
+        [SPObjectMappingFactory registerObjectMapping:[[SPListItemMapping alloc] init]
+                                             forClass:self];
 }
 
 - (void)dealloc

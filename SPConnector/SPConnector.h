@@ -35,3 +35,6 @@
 
 #import "SPGetWebCollection.h"
 #import "SPGetWeb.h"
+
+// Custom List Item Models
+#import "SPListDocumentItem.h"

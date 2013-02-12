@@ -29,7 +29,7 @@
 #import <libxml/tree.h>
 #import <libxml/xpath.h>
 #import <libxml/xpathInternals.h>
-#import "WNCAMLQuery.h"
+#import "SPCAMLQuery.h"
 
 @interface SPMethod () {
 @protected
@@ -133,7 +133,7 @@
         [self.requestMessage addMethodElementChild:rootQueryOptsElement];
     }
     
-    xmlNodePtr queryElement = [WNCAMLQuery queryElementWithPredicate:self.predicate sortDescriptors:self.sortDescriptors];
+    xmlNodePtr queryElement = [SPCAMLQuery queryElementWithPredicate:self.predicate sortDescriptors:self.sortDescriptors];
     if (self.dateRangeOverlapValue)
     {
         if (queryElement == NULL)

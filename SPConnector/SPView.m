@@ -22,14 +22,17 @@
 // THE SOFTWARE.
 
 #import "SPView.h"
+#import "SPViewMapping.h"
 
 @implementation SPView
 
 @dynamic viewName, type, displayName;
 
-+ (NSDictionary *)propertyToAttributeMap
++ (void)initialize
 {
-    return @{ @"viewName" : @"Name", @"type" : @"Type", @"displayName" : @"DisplayName" };
+    if (self == [SPView class])
+        [SPObjectMappingFactory registerObjectMapping:[[SPViewMapping alloc] init]
+                                             forClass:self];
 }
 
 @end

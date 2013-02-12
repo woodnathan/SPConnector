@@ -62,6 +62,7 @@ typedef void(^SPContextRequestSetup)(id requestOperation);
 - (void)getList:(NSString *)listName parentRef:(NSString *)parentRef items:(void (^)(NSArray *items))completion;
 - (void)getList:(NSString *)listName parentRef:(NSString *)parentRef setup:(void (^)(SPGetListItems *op))setup items:(void (^)(NSArray *items))completion;
 - (void)getList:(NSString *)listName itemID:(NSString *)itemID attachments:(void (^)(NSArray *attachments))completion;
+- (void)createList:(NSString *)listName itemWithFields:(NSDictionary *)fields results:(void (^)(NSArray *results))completion;
 
 // Views
 - (void)getList:(NSString *)listName views:(void (^)(NSArray *views))completion;
