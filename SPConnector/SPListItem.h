@@ -33,6 +33,8 @@
 @property (nonatomic, readonly) NSString *title;
 @property (nonatomic, readonly) NSString *contentType;
 
+@property (nonatomic, readonly) NSString *fileRef;
+
 @property (nonatomic, weak) SPListItem *parent;
 @property (nonatomic, copy) NSArray *children;
 @property (nonatomic, copy) NSArray *attachments;

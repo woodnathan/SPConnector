@@ -29,8 +29,8 @@
 @implementation SPListItem
 
 @dynamic itemID, itemUniqueID;
-@dynamic title, filename, URLString, contentType, fileRef, modifiedDate;
-@dynamic eventStartDate, eventEndDate;
+@dynamic title, contentType;
+@dynamic fileRef;
 @synthesize parent = _parent, children = _children, attachments = _attachments;
 
 + (void)initialize

@@ -30,6 +30,7 @@
 #import "SPGetListItems.h"
 #import "SPGetList.h"
 #import "SPGetAttachmentCollection.h"
+#import "SPUpdateListItems.h"
 
 #import "SPGetViewCollection.h"
 
@@ -38,3 +39,4 @@
 
 // Custom List Item Models
 #import "SPListDocumentItem.h"
+#import "SPListEventItem.h"
