@@ -99,6 +99,14 @@ NSString * const SPListItemDefaultContentTypeClassKey = @"kDefaultListItem";
     xmlAddChild(vfElement, viewFieldsElement);
     [self.requestMessage addMethodElementChild:vfElement];
     
+    // Add the minimum required fields, but only
+    // if we're going to get specified fields
+    if (self->_viewFieldSet)
+    {
+        [self addViewField:@"Title"];
+        [self addViewField:@"ContentType"];
+    }
+    
     [self.viewFieldSet enumerateObjectsUsingBlock:^(NSString *fieldName, BOOL *stop) {
         xmlNodePtr field = xmlNewNode(NULL, (xmlChar *)"FieldRef");
         xmlNewProp(field, (xmlChar *)"Name", (xmlChar *)[fieldName UTF8String]);
