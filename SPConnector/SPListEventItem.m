@@ -19,8 +19,8 @@
 {
     SPListItemMapping *mapping = [[SPListItemMapping alloc] init];
     [mapping mapKeyPath:@"startDate" toAttribute:@"ows_EventDate"];
-    [mapping mapKeyPath:@"endDate" toAttribute:@"ows_BaseName"];
-    [mapping mapKeyPath:@"location" toAttribute:@"ows_EndDate"];
+    [mapping mapKeyPath:@"endDate" toAttribute:@"ows_EndDate"];
+    [mapping mapKeyPath:@"location" toAttribute:@"ows_Location"];
     
     [SPObjectMappingFactory registerObjectMapping:mapping forClass:self];
     
