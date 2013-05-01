@@ -93,6 +93,8 @@ NSString * const SPListItemDefaultContentTypeClassKey = @"kDefaultListItem";
 {
     [super prepareRequestMessage];
     
+    [self.requestMessage addMethodElementWithName:@"viewName" value:self.viewName];
+    
     xmlNodePtr viewFieldsElement = xmlNewNode(NULL, (xmlChar *)"ViewFields");
     xmlNewProp(viewFieldsElement, (xmlChar *)"Properties", (xmlChar *)"True");
     xmlNodePtr vfElement = xmlNewNode(NULL, (xmlChar *)"viewFields");

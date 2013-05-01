@@ -32,6 +32,7 @@ extern NSString * const SPListItemDefaultContentTypeClassKey;
 + (Class)objectClassForContentType:(NSString *)contentType;
 
 @property (nonatomic, copy) NSString *parentFileRef;
+@property (nonatomic, copy) NSString *viewName;
 
 @property (nonatomic, readonly) NSArray *viewFields;
 - (void)addViewField:(NSString *)field;

@@ -28,6 +28,7 @@
 @property (nonatomic, readonly) NSString *fieldID;
 @property (nonatomic, readonly) NSString *name;
 @property (nonatomic, readonly) NSString *displayName;
+@property (nonatomic, readonly) NSString *staticName;
 
 @property (nonatomic, readonly) NSString *type;
 @property (nonatomic, readonly) BOOL required;

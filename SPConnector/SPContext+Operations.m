@@ -69,7 +69,7 @@
 {
     if (completion)
     {
-        __unsafe_unretained SPMethod *uMethod = method;
+        __block SPMethod *uMethod = method;
         [method setCompletionBlock:^{
             NSArray *respObjs = uMethod.responseObjects;
             dispatch_async(dispatch_get_main_queue(), ^{

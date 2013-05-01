@@ -8,6 +8,7 @@
 
 #import "SPUpdateListItems.h"
 #import "SPMessage.h"
+#import "SPListItem.h"
 
 @implementation SPUpdateListItems
 
@@ -20,7 +21,12 @@
 
 + (NSString *)objectPath
 {
-    return @"//rs:data/z:row";
+    return @"//z:row";
+}
+
++ (Class)objectClass
+{
+    return [SPListItem class];
 }
 
 - (SPCAMLBatch *)batch
@@ -41,9 +47,16 @@
 
 - (void)parseResponseMessage
 {
-#warning Implement in future
-//    [super parseResponseMessage];
-//    NSLog(@"%@", [[NSString alloc] initWithData:self.responseMessage.XMLData encoding:NSUTF8StringEncoding]);
+    NSMutableArray *objects = [[NSMutableArray alloc] init];
+    
+    NSString *path = [[self class] objectPath];
+    [self.responseMessage enumerateRowNodesForXPath:path withBlock:^(xmlNodePtr node, BOOL *stop) {
+        id obj = [[[self class] objectClass] alloc];
+        obj = [obj initWithNode:node context:self.context];
+        [objects addObject:obj];
+    }];
+    
+    self->_responseObjects = [objects copy];
 }
 
 @end

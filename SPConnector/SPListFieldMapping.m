@@ -18,6 +18,7 @@
         [self mapKeyPath:@"fieldID" toAttribute:@"ID"];
         [self mapKeyPath:@"name" toAttribute:@"Name"];
         [self mapKeyPath:@"displayName" toAttribute:@"DisplayName"];
+        [self mapKeyPath:@"staticName" toAttribute:@"StaticName"];
         [self mapKeyPath:@"type" toAttribute:@"Type"];
         [self mapKeyPath:@"required" toAttribute:@"Required"];
         [self mapKeyPath:@"readOnly" toAttribute:@"ReadOnly"];

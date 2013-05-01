@@ -26,7 +26,7 @@
 
 @implementation SPListField
 
-@dynamic fieldID, name, displayName;
+@dynamic fieldID, name, displayName, staticName;
 @dynamic type, required, readOnly;
 @dynamic min, max;
 
