@@ -73,7 +73,7 @@
     {
         self.context = context;
         
-        self.requestMessage = [[SPMessage alloc] initWithMethod:[[self class] method]];
+        self.requestMessage = [[SPMessage alloc] initWithMethod:[[self class] method] version:context.version];
     }
     return self;
 }
