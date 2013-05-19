@@ -23,13 +23,17 @@
 
 #import <Foundation/Foundation.h>
 #import <libxml/tree.h>
+#import "SPContext.h"
 
 @interface SPMessage : NSObject
 
-- (id)initWithMethod:(NSString *)method;
+- (id)initWithMethod:(NSString *)method; // Default is SOAP v1.2
+- (id)initWithMethod:(NSString *)method version:(SPSOAPVersion)version;
 - (id)initWithData:(NSData *)data error:(NSError **)error;
 
 - (NSData *)XMLData;
+
+@property (nonatomic, readonly) SPSOAPVersion version;
 
 @property (nonatomic, readonly) xmlDocPtr XMLDocument;
 @property (nonatomic, readonly) xmlNodePtr rootElement;

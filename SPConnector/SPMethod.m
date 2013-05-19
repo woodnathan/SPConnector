@@ -98,6 +98,11 @@
     return Nil;
 }
 
++ (NSString *)SOAPAction
+{
+    return nil;
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (object == self.requestOperation)
@@ -179,8 +184,24 @@
     NSData *XMLData = [self.requestMessage XMLData];
     
     [URLRequest setHTTPMethod:@"POST"];
-    [URLRequest setValue:@"application/soap+xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [URLRequest setValue:@"application/soap+xml; charset=utf-8" forHTTPHeaderField:@"Accept"];
+    
+    SPSOAPVersion version = self.context.version;
+    switch (version) {
+        case SPSOAPVersion11:{
+            [URLRequest setValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+            NSString *action = [[self class] SOAPAction];
+            if (action)
+                [URLRequest setValue:[NSString stringWithFormat:@"\"%@\"", action] forHTTPHeaderField:@"SOAPAction"];
+            break;
+        }
+        case SPSOAPVersion12:
+        default:{
+            [URLRequest setValue:@"application/soap+xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+            [URLRequest setValue:@"application/soap+xml; charset=utf-8" forHTTPHeaderField:@"Accept"];
+            break;
+        }
+    }
+    
     [URLRequest setHTTPBody:XMLData];
     
     self.requestOperation = [self.context requestOperationWithRequest:URLRequest];

@@ -35,6 +35,7 @@
 + (NSString *)endpoint;
 + (NSString *)objectPath;
 + (Class)objectClass;
++ (NSString *)SOAPAction;
 
 - (id)initWithContext:(SPContext *)context;
 

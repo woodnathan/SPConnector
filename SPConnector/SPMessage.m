@@ -25,12 +25,13 @@
 #import <libxml/xpath.h>
 #import <libxml/xpathInternals.h>
 
-char * const SPMessageNamespaceURISchemaInstance = "http://www.w3.org/2001/XMLSchema-instance";
-char * const SPMessageNamespaceURISchema         = "http://www.w3.org/2001/XMLSchema";
-char * const SPMessageNamespaceURISOAP12         = "http://www.w3.org/2003/05/soap-envelope";
-char * const SPMessageNamespaceURISharePointSOAP = "http://schemas.microsoft.com/sharepoint/soap/";
-char * const SPMessageNamespaceRowset            = "urn:schemas-microsoft-com:rowset";
-char * const SPMessageNamespaceRowsetSchema      = "#RowsetSchema";
+xmlChar * const SPMessageNamespaceURISchemaInstance = (xmlChar *)"http://www.w3.org/2001/XMLSchema-instance";
+xmlChar * const SPMessageNamespaceURISchema         = (xmlChar *)"http://www.w3.org/2001/XMLSchema";
+xmlChar * const SPMessageNamespaceURISOAP11         = (xmlChar *)"http://schemas.xmlsoap.org/soap/envelope/";
+xmlChar * const SPMessageNamespaceURISOAP12         = (xmlChar *)"http://www.w3.org/2003/05/soap-envelope";
+xmlChar * const SPMessageNamespaceURISharePointSOAP = (xmlChar *)"http://schemas.microsoft.com/sharepoint/soap/";
+xmlChar * const SPMessageNamespaceRowset            = (xmlChar *)"urn:schemas-microsoft-com:rowset";
+xmlChar * const SPMessageNamespaceRowsetSchema      = (xmlChar *)"#RowsetSchema";
 
 
 static NSMutableString *xmlErrorMessage = nil;
@@ -55,7 +56,7 @@ static void xmlErrorFunc(void *ctx, const char *msg, ...)
     xmlNodePtr _methodNode;
 }
 
-+ (xmlNodePtr)newSOAPEnvelopeNode;
++ (xmlNodePtr)newSOAPEnvelopeNodeWithVersion:(SPSOAPVersion)version;
 
 - (void)enumerateNodesForXPath:(NSString *)path namespace:(void (^)(xmlXPathContextPtr ctx))namespace withBlock:(void (^)(xmlNodePtr node, BOOL *stop))block;
 
@@ -64,14 +65,23 @@ static void xmlErrorFunc(void *ctx, const char *msg, ...)
 
 @implementation SPMessage
 
+@synthesize version = _version;
+
 - (id)initWithMethod:(NSString *)method
+{
+    return [self initWithMethod:method version:SPSOAPVersion12];
+}
+
+- (id)initWithMethod:(NSString *)method version:(SPSOAPVersion)version
 {
     self = [super init];
     if (self)
     {
+        self->_version = version;
+        
         _xmlDoc = xmlNewDoc(NULL);
         
-        xmlNodePtr envelope = [[self class] newSOAPEnvelopeNode];
+        xmlNodePtr envelope = [[self class] newSOAPEnvelopeNodeWithVersion:version];
         xmlDocSetRootElement(_xmlDoc, envelope);
         
         _methodNode = xmlNewNode(NULL, (xmlChar *)[method UTF8String]);
@@ -101,6 +111,33 @@ static void xmlErrorFunc(void *ctx, const char *msg, ...)
                                          code:-1
                                      userInfo:userInfo];
         }
+        else
+        {
+            SPSOAPVersion version = SPSOAPVersion12;
+            xmlNsPtr *namespaceList = xmlGetNsList(_xmlDoc, xmlDocGetRootElement(_xmlDoc));
+            if (namespaceList != NULL)
+            {
+                for (int i = 0; namespaceList[i] != NULL; i++)
+                {
+                    xmlNsPtr ns = namespaceList[i];
+                    if (ns->href == NULL)
+                        continue;
+                    
+                    if (xmlStrcmp(ns->href, SPMessageNamespaceURISOAP12))
+                    {
+                        break;
+                    }
+                    else
+                        if (xmlStrcmp(ns->href, SPMessageNamespaceURISOAP11))
+                        {
+                            version = SPSOAPVersion11;
+                            break;
+                        }
+                }
+            }
+            
+            self->_version = version;
+        }
     }
     return self;
 }
@@ -112,18 +149,36 @@ static void xmlErrorFunc(void *ctx, const char *msg, ...)
     _xmlDoc = NULL;
 }
 
-+ (xmlNodePtr)newSOAPEnvelopeNode
++ (xmlNodePtr)newSOAPEnvelopeNodeWithVersion:(SPSOAPVersion)version
 {
+    xmlNsPtr soapNS = NULL;
     xmlNodePtr envelope = NULL, body = NULL;
     
-    xmlNsPtr soapNS = xmlNewNs(NULL, (xmlChar*)SPMessageNamespaceURISOAP12, (xmlChar*)"soap12");
+    switch (version) {
+        case SPSOAPVersion11:
+            soapNS = xmlNewNs(NULL, SPMessageNamespaceURISOAP11, (xmlChar*)"soap");
+            break;
+        case SPSOAPVersion12:
+        default:
+            soapNS = xmlNewNs(NULL, SPMessageNamespaceURISOAP12, (xmlChar*)"soap12");
+            break;
+    }
     
     envelope = xmlNewNode(soapNS, (xmlChar*)"Envelope");
     body = xmlNewNode(soapNS, (xmlChar*)"Body");
     
     xmlNewNs(envelope, (xmlChar*)SPMessageNamespaceURISchema, (xmlChar*)"xsi");
     xmlNewNs(envelope, (xmlChar*)SPMessageNamespaceURISchemaInstance, (xmlChar*)"xsd");
-    xmlNewNs(envelope, (xmlChar*)SPMessageNamespaceURISOAP12, (xmlChar*)"soap12");
+    
+    switch (version) {
+        case SPSOAPVersion11:
+            xmlNewNs(envelope, SPMessageNamespaceURISOAP11, (xmlChar*)"soap");
+            break;
+        case SPSOAPVersion12:
+        default:
+            xmlNewNs(envelope, SPMessageNamespaceURISOAP12, (xmlChar*)"soap12");
+            break;
+    }
     
     xmlAddChild(envelope, body);
     
@@ -214,7 +269,7 @@ static void xmlErrorFunc(void *ctx, const char *msg, ...)
 {
     [self enumerateNodesForXPath:path
                        namespace:^(xmlXPathContextPtr ctx) {
-                           xmlXPathRegisterNs(ctx, (xmlChar*)"soap", (xmlChar*)SPMessageNamespaceURISharePointSOAP);
+                           xmlXPathRegisterNs(ctx, (xmlChar*)"soap", SPMessageNamespaceURISharePointSOAP);
                        }
                        withBlock:block];
 }
@@ -223,8 +278,8 @@ static void xmlErrorFunc(void *ctx, const char *msg, ...)
 {
     [self enumerateNodesForXPath:path
                        namespace:^(xmlXPathContextPtr ctx) {
-                           xmlXPathRegisterNs(ctx, (xmlChar*)"z", (xmlChar*)SPMessageNamespaceRowsetSchema);
-                           xmlXPathRegisterNs(ctx, (xmlChar*)"rs", (xmlChar*)SPMessageNamespaceRowset);
+                           xmlXPathRegisterNs(ctx, (xmlChar*)"z", SPMessageNamespaceRowsetSchema);
+                           xmlXPathRegisterNs(ctx, (xmlChar*)"rs", SPMessageNamespaceRowset);
                        }
                        withBlock:block];
 }

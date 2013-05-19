@@ -25,6 +25,11 @@
 
 extern NSString *const SPContextWillBeDeallocated;
 
+typedef NS_ENUM(unsigned char, SPSOAPVersion) {
+    SPSOAPVersion12 = 0,
+    SPSOAPVersion11
+};
+
 @class SPMethod;
 @class SPWeb, SPList;
 @class SPGetListItems;
@@ -33,9 +38,11 @@ typedef void(^SPContextRequestSetup)(id requestOperation);
 
 @interface SPContext : NSObject
 
-- (id)initWithSiteURL:(NSURL *)url;
+- (id)initWithSiteURL:(NSURL *)url; // Default: SOAP 1.2
+- (id)initWithSiteURL:(NSURL *)url version:(SPSOAPVersion)version;
 
 @property (nonatomic, copy, readonly) NSURL *siteURL;
+@property (nonatomic, readonly) SPSOAPVersion version;
 @property (nonatomic, assign) Class requestOperationClass;
 
 @property (nonatomic, copy) SPContextRequestSetup requestSetupBlock;
@@ -47,6 +54,8 @@ typedef void(^SPContextRequestSetup)(id requestOperation);
 - (void)enqueueMethod:(SPMethod *)method;
 
 @end
+
+#pragma mark - Operations
 
 @interface SPContext (Operations)
 
