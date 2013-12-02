@@ -135,7 +135,7 @@ static void xmlErrorFunc(void *ctx, const char *msg, ...)
                         }
                 }
                 
-                free(namespaceList);
+                xmlFree(namespaceList);
             }
             
             self->_version = version;
