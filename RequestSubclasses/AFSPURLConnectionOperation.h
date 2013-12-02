@@ -22,8 +22,8 @@
 // THE SOFTWARE.
 
 #import "AFURLConnectionOperation.h"
-#import "SPMethodRequest.h"
+#import "SPMethodRequestOperation.h"
 
-@interface AFSPURLConnectionOperation : AFURLConnectionOperation <SPMethodRequest>
+@interface AFSPURLConnectionOperation : AFURLConnectionOperation <SPMethodRequestOperation>
 
 @end

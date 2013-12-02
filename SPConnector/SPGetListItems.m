@@ -40,8 +40,9 @@ NSString * const SPListItemDefaultContentTypeClassKey = @"kDefaultListItem";
 
 @implementation SPGetListItems
 
-@synthesize viewFieldSet = _viewFieldSet;
 @synthesize parentFileRef = _parentFileRef;
+@synthesize viewName = _viewName;
+@synthesize viewFieldSet = _viewFieldSet;
 
 + (NSMutableDictionary *)contentTypeClassMappings
 {

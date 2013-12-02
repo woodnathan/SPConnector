@@ -47,7 +47,7 @@
 
 @property (nonatomic, strong, readwrite) NSError *error;
 
-@property (nonatomic, strong) NSObject <SPMethodRequest>* requestOperation;
+@property (nonatomic, strong) NSObject <SPMethodRequestOperation>* requestOperation;
 
 - (void)finish;
 

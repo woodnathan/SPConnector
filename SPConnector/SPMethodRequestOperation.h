@@ -1,5 +1,5 @@
 //
-//  SPMethodRequest.h
+//  SPMethodRequestOperation.h
 //
 //  Copyright (c) 2013 Nathan Wood (http://www.woodnathan.com/)
 //
@@ -21,9 +21,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "SPMethodRequestOperation.h"
+#import <Foundation/Foundation.h>
 
-__attribute__((deprecated))
-@protocol SPMethodRequest <SPMethodRequestOperation>
+@protocol SPMethodRequestOperation <NSObject>
+
+- (id)initWithRequest:(NSURLRequest *)request;
+
+- (NSData *)responseData;
+
+- (void)start;
+
+- (BOOL)isFinished;
 
 @end

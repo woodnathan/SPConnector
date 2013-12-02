@@ -1,5 +1,5 @@
 //
-//  SPMethodRequest.h
+//  SPURLConnectionOperation.h
 //
 //  Copyright (c) 2013 Nathan Wood (http://www.woodnathan.com/)
 //
@@ -21,9 +21,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import <Foundation/Foundation.h>
 #import "SPMethodRequestOperation.h"
 
-__attribute__((deprecated))
-@protocol SPMethodRequest <SPMethodRequestOperation>
+typedef void(^SPAuthenticationChallengeBlock)(NSURLConnection *connection,
+                                              NSURLAuthenticationChallenge *challenge);
+
+@interface SPURLConnectionOperation : NSOperation <SPMethodRequestOperation>
+
+@property (nonatomic, copy) NSSet *runLoopModes;
+
+@property (nonatomic, copy) NSURLRequest *request;
+@property (nonatomic, strong, readonly) NSURLResponse *response;
+@property (nonatomic, strong, readonly) NSError *error;
+
+@property (nonatomic, strong) NSOutputStream *outputStream;
+@property (nonatomic, strong, readonly) NSData *responseData;
+
+@property (nonatomic, copy) SPAuthenticationChallengeBlock authenticationChallengeBlock;
+- (void)setAuthenticationChallengeBlock:(void (^)(NSURLConnection *connection,
+                                                  NSURLAuthenticationChallenge *challenge))block;
 
 @end

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D821B6B9184C8605009CCF77 /* SPURLConnectionOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = D821B6B7184C8605009CCF77 /* SPURLConnectionOperation.h */; };
+		D821B6BA184C8605009CCF77 /* SPURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D821B6B8184C8605009CCF77 /* SPURLConnectionOperation.m */; };
 		D834F300163F7F3200D4563F /* SPObject.h in Headers */ = {isa = PBXBuildFile; fileRef = D834F2FE163F7F3200D4563F /* SPObject.h */; };
 		D834F301163F7F3200D4563F /* SPObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D834F2FF163F7F3200D4563F /* SPObject.m */; };
 		D834F307163F806800D4563F /* SPMethod.h in Headers */ = {isa = PBXBuildFile; fileRef = D834F305163F806800D4563F /* SPMethod.h */; };
@@ -38,6 +40,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D821B6B6184C84B6009CCF77 /* SPMethodRequestOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPMethodRequestOperation.h; sourceTree = "<group>"; };
+		D821B6B7184C8605009CCF77 /* SPURLConnectionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPURLConnectionOperation.h; sourceTree = "<group>"; };
+		D821B6B8184C8605009CCF77 /* SPURLConnectionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPURLConnectionOperation.m; sourceTree = "<group>"; };
 		D834F2FE163F7F3200D4563F /* SPObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPObject.h; sourceTree = "<group>"; };
 		D834F2FF163F7F3200D4563F /* SPObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPObject.m; sourceTree = "<group>"; };
 		D834F305163F806800D4563F /* SPMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPMethod.h; sourceTree = "<group>"; };
@@ -100,6 +105,9 @@
 				D834F305163F806800D4563F /* SPMethod.h */,
 				D834F306163F806800D4563F /* SPMethod.m */,
 				D834F309163F808F00D4563F /* SPMethodRequest.h */,
+				D821B6B6184C84B6009CCF77 /* SPMethodRequestOperation.h */,
+				D821B6B7184C8605009CCF77 /* SPURLConnectionOperation.h */,
+				D821B6B8184C8605009CCF77 /* SPURLConnectionOperation.m */,
 			);
 			name = Method;
 			sourceTree = "<group>";
@@ -213,6 +221,7 @@
 				D834F30E163F81FD00D4563F /* SPMessage.h in Headers */,
 				D834F33A163F9D7F00D4563F /* SPGetListCollection.h in Headers */,
 				D834F33E163F9DBA00D4563F /* SPListsMethod.h in Headers */,
+				D821B6B9184C8605009CCF77 /* SPURLConnectionOperation.h in Headers */,
 				D834F343163F9F0C00D4563F /* SPList.h in Headers */,
 				D834F35B163FDEC800D4563F /* SPGetListItems.h in Headers */,
 				D834F35F163FDEDF00D4563F /* SPListItem.h in Headers */,
@@ -285,6 +294,7 @@
 				D834F360163FDEDF00D4563F /* SPListItem.m in Sources */,
 				D8742BD116463EFD00D67419 /* SPWeb.m in Sources */,
 				D8742BD716463F5700D67419 /* SPWebsMethod.m in Sources */,
+				D821B6BA184C8605009CCF77 /* SPURLConnectionOperation.m in Sources */,
 				D8742BDB16463F8300D67419 /* SPGetWebCollection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -342,9 +352,13 @@
 		D890B21E163F77A300734279 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = YES;
 				DSTROOT = /tmp/SPConnector.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SPConnector-Prefix.pch";
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_PEDANTIC = YES;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -355,9 +369,13 @@
 		D890B21F163F77A300734279 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = YES;
 				DSTROOT = /tmp/SPConnector.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SPConnector-Prefix.pch";
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_PEDANTIC = YES;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";

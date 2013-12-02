@@ -22,6 +22,7 @@
 // THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import "SPURLConnectionOperation.h"
 
 extern NSString *const SPContextWillBeDeallocated;
 
@@ -42,7 +43,12 @@ typedef void(^SPContextRequestSetup)(id requestOperation);
 - (id)initWithSiteURL:(NSURL *)url version:(SPSOAPVersion)version;
 
 @property (nonatomic, copy, readonly) NSURL *siteURL;
-@property (nonatomic, readonly) SPSOAPVersion version;
+@property (nonatomic, assign, readonly) SPSOAPVersion version;
+
+/**
+ *  Instances of class must conform to SPMethodRequestOperation
+ *  Has a default value of the SPURLConnectionOperation class
+ */
 @property (nonatomic, assign) Class requestOperationClass;
 
 @property (nonatomic, copy) SPContextRequestSetup requestSetupBlock;

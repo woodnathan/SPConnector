@@ -22,7 +22,8 @@
 // THE SOFTWARE.
 
 #import "SPContext.h"
-#import "SPMethodRequest.h"
+#import "SPMethodRequestOperation.h"
+#import "SPURLConnectionOperation.h"
 #import "SPMethod.h"
 
 NSString *const SPContextWillBeDeallocated = @"kSPContextWillBeDeallocated";
@@ -30,6 +31,7 @@ NSString *const SPContextWillBeDeallocated = @"kSPContextWillBeDeallocated";
 @interface SPContext ()
 
 @property (nonatomic, copy, readwrite) NSURL *siteURL;
+@property (nonatomic, assign, readwrite) SPSOAPVersion version;
 
 @property (nonatomic, strong) NSOperationQueue *methodQueue;
 
@@ -53,8 +55,9 @@ NSString *const SPContextWillBeDeallocated = @"kSPContextWillBeDeallocated";
     if (self)
     {
         self.siteURL = url;
-        self->_version = version;
+        self.version = version;
         
+        self.requestOperationClass = [SPURLConnectionOperation class];
         self.methodQueue = [[NSOperationQueue alloc] init];
     }
     return self;
@@ -73,9 +76,9 @@ NSString *const SPContextWillBeDeallocated = @"kSPContextWillBeDeallocated";
 
 - (id)requestOperationWithRequest:(NSURLRequest *)request
 {
-    id <SPMethodRequest> operation = [self.requestOperationClass alloc];
+    id <SPMethodRequestOperation> operation = [self.requestOperationClass alloc];
     
-    NSAssert([operation conformsToProtocol:@protocol(SPMethodRequest)], @"Operation does not conform to SPMethodRequest");
+    NSAssert([operation conformsToProtocol:@protocol(SPMethodRequestOperation)], @"Operation does not conform to SPMethodRequest");
     
     operation = [operation initWithRequest:request];
     
