@@ -39,7 +39,7 @@
 @property (nonatomic, copy) NSArray *children;
 @property (nonatomic, copy) NSArray *attachments;
 
-- (void)loadChildren:(void (^)(NSArray *items))completion;
-- (void)loadAttachments:(void (^)(NSArray *attachments))completion;
+- (void)loadChildren:(void (^)(NSArray *items, NSError *error))completion;
+- (void)loadAttachments:(void (^)(NSArray *attachments, NSError *error))completion;
 
 @end

@@ -24,7 +24,14 @@
 #import <Foundation/Foundation.h>
 #import "SPCAMLQueryOptions.h"
 
+@class SPMethod;
 @class SPContext, SPMessage;
+
+@protocol SPMethodDelegate <NSObject>
+
+- (void)method:(SPMethod *)method didFailWithError:(NSError *)error;
+
+@end
 
 @interface SPMethod : NSOperation {
 @protected
@@ -40,6 +47,7 @@
 - (id)initWithContext:(SPContext *)context;
 
 @property (nonatomic, weak, readonly) SPContext *context;
+@property (nonatomic, weak) id <SPMethodDelegate> delegate;
 
 @property (nonatomic, strong, readonly) SPMessage *requestMessage;
 @property (nonatomic, strong, readonly) SPMessage *responseMessage;

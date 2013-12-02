@@ -26,41 +26,41 @@
 
 @implementation SPList (Operations)
 
-- (void)createItemWithFields:(NSDictionary *)fields completion:(void (^)(NSArray *results))completion
+- (void)createItemWithFields:(NSDictionary *)fields completion:(void (^)(NSArray *results, NSError *error))completion
 {
     [self.context createList:self.listName
               itemWithFields:fields
                      results:completion];
 }
 
-- (void)loadItems:(void (^)(NSArray *items))completion
+- (void)loadItems:(void (^)(NSArray *items, NSError *error))completion
 {
     [self.context getList:self.listName
-                    items:^(NSArray *items) {
+                    items:^(NSArray *items, NSError *error) {
                         self.items = items;
                         
                         if (completion)
-                            completion(items);
+                            completion(items, error);
                     }];
 }
 
-- (void)loadFields:(void (^)(NSArray *fields))completion
+- (void)loadFields:(void (^)(NSArray *fields, NSError *error))completion
 {
     [self.context getListWithList:self
-                       completion:^(SPList *list) {
+                       completion:^(SPList *list, NSError *error) {
                            if (completion)
-                               completion(self.fields);
+                               completion(self.fields, error);
                        }];
 }
 
-- (void)loadViews:(void (^)(NSArray *views))completion
+- (void)loadViews:(void (^)(NSArray *views, NSError *error))completion
 {
     [self.context getList:self.listName
-                    views:^(NSArray *views) {
+                    views:^(NSArray *views, NSError *error) {
                         self.views = views;
                         
                         if (completion)
-                            completion(views);
+                            completion(views, error);
                     }];
 }
 

@@ -31,11 +31,18 @@ typedef NS_ENUM(unsigned char, SPSOAPVersion) {
     SPSOAPVersion11
 };
 
+@class SPContext;
 @class SPMethod;
 @class SPWeb, SPList;
 @class SPGetListItems;
 
 typedef void(^SPContextRequestSetup)(id requestOperation);
+
+@protocol SPContextDelegate <NSObject>
+
+- (void)context:(SPContext *)context didFailWithError:(NSError *)error;
+
+@end
 
 @interface SPContext : NSObject
 
@@ -44,6 +51,8 @@ typedef void(^SPContextRequestSetup)(id requestOperation);
 
 @property (nonatomic, copy, readonly) NSURL *siteURL;
 @property (nonatomic, assign, readonly) SPSOAPVersion version;
+
+@property (nonatomic, weak) id <SPContextDelegate> delegate;
 
 /**
  *  Instances of class must conform to SPMethodRequestOperation
@@ -66,20 +75,20 @@ typedef void(^SPContextRequestSetup)(id requestOperation);
 @interface SPContext (Operations)
 
 // Webs
-- (void)getWebCollection:(void (^)(NSArray *webs))completion;
-- (void)getWeb:(NSString *)webURL completion:(void (^)(SPWeb *web))completion;
+- (void)getWebCollection:(void (^)(NSArray *webs, NSError *error))completion;
+- (void)getWeb:(NSString *)webURL completion:(void (^)(SPWeb *web, NSError *error))completion;
 
 // Lists
-- (void)getListCollection:(void (^)(NSArray *lists))completion;
-- (void)getListWithList:(SPList *)list completion:(void (^)(SPList *list))completion;
-- (void)getList:(NSString *)listName completion:(void (^)(SPList *list))completion;
-- (void)getList:(NSString *)listName items:(void (^)(NSArray *items))completion;
-- (void)getList:(NSString *)listName parentRef:(NSString *)parentRef items:(void (^)(NSArray *items))completion;
-- (void)getList:(NSString *)listName parentRef:(NSString *)parentRef setup:(void (^)(SPGetListItems *op))setup items:(void (^)(NSArray *items))completion;
-- (void)getList:(NSString *)listName itemID:(NSString *)itemID attachments:(void (^)(NSArray *attachments))completion;
-- (void)createList:(NSString *)listName itemWithFields:(NSDictionary *)fields results:(void (^)(NSArray *results))completion;
+- (void)getListCollection:(void (^)(NSArray *lists, NSError *error))completion;
+- (void)getListWithList:(SPList *)list completion:(void (^)(SPList *list, NSError *error))completion;
+- (void)getList:(NSString *)listName completion:(void (^)(SPList *list, NSError *error))completion;
+- (void)getList:(NSString *)listName items:(void (^)(NSArray *items, NSError *error))completion;
+- (void)getList:(NSString *)listName parentRef:(NSString *)parentRef items:(void (^)(NSArray *items, NSError *error))completion;
+- (void)getList:(NSString *)listName parentRef:(NSString *)parentRef setup:(void (^)(SPGetListItems *op))setup items:(void (^)(NSArray *items, NSError *error))completion;
+- (void)getList:(NSString *)listName itemID:(NSString *)itemID attachments:(void (^)(NSArray *attachments, NSError *error))completion;
+- (void)createList:(NSString *)listName itemWithFields:(NSDictionary *)fields results:(void (^)(NSArray *results, NSError *error))completion;
 
 // Views
-- (void)getList:(NSString *)listName views:(void (^)(NSArray *views))completion;
+- (void)getList:(NSString *)listName views:(void (^)(NSArray *views, NSError *error))completion;
 
 @end

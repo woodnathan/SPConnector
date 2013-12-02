@@ -35,22 +35,24 @@
 #import "SPGetWebCollection.h"
 #import "SPGetWeb.h"
 
+typedef void (^SPContextCompletionBlock)(NSArray *items, NSError *error);
+
 @interface SPContext (OperationsPrivate)
 
-- (SPMethod *)methodForClass:(Class)class setup:(void (^)(id op))setup completion:(void (^)(NSArray *items))completion;
-- (SPMethod *)methodForClass:(Class)class setup:(void (^)(id op))setup completion:(void (^)(NSArray *items))completion enqueue:(BOOL)enqueue;
-- (void)setMethod:(SPMethod *)method completionBlock:(void (^)(NSArray *items))completion;
+- (SPMethod *)methodForClass:(Class)class setup:(void (^)(id op))setup completion:(SPContextCompletionBlock)completion;
+- (SPMethod *)methodForClass:(Class)class setup:(void (^)(id op))setup completion:(SPContextCompletionBlock)completion enqueue:(BOOL)enqueue;
+- (void)setMethod:(SPMethod *)method completionBlock:(SPContextCompletionBlock)completion;
 
 @end
 
 @implementation SPContext (OperationsPrivate)
 
-- (SPMethod *)methodForClass:(Class)class setup:(void (^)(id op))setup completion:(void (^)(NSArray *items))completion
+- (SPMethod *)methodForClass:(Class)class setup:(void (^)(id op))setup completion:(SPContextCompletionBlock)completion
 {
     return [self methodForClass:class setup:setup completion:completion enqueue:YES];
 }
 
-- (SPMethod *)methodForClass:(Class)class setup:(void (^)(id op))setup completion:(void (^)(NSArray *items))completion enqueue:(BOOL)enqueue
+- (SPMethod *)methodForClass:(Class)class setup:(void (^)(id op))setup completion:(SPContextCompletionBlock)completion enqueue:(BOOL)enqueue
 {
     SPMethod *method = [[class alloc] initWithContext:self];
     
@@ -65,15 +67,16 @@
     return method;
 }
 
-- (void)setMethod:(SPMethod *)method completionBlock:(void (^)(NSArray *items))completion
+- (void)setMethod:(SPMethod *)method completionBlock:(SPContextCompletionBlock)completion
 {
     if (completion)
     {
-        __block SPMethod *uMethod = method;
+        __unsafe_unretained SPMethod *uMethod = method;
         [method setCompletionBlock:^{
             NSArray *respObjs = uMethod.responseObjects;
+            NSError *error = uMethod.error;
             dispatch_async(dispatch_get_main_queue(), ^{
-                completion(respObjs);
+                completion(respObjs, error);
             });
         }];
     }
@@ -83,17 +86,17 @@
 
 @implementation SPContext (Operations)
 
-- (void)getWebCollection:(void (^)(NSArray *webs))completion
+- (void)getWebCollection:(void (^)(NSArray *webs, NSError *error))completion
 {
     [self methodForClass:[SPGetWebCollection class] setup:NULL completion:completion];
 }
 
-- (void)getWeb:(NSString *)webURL completion:(void (^)(SPWeb *web))completion
+- (void)getWeb:(NSString *)webURL completion:(void (^)(SPWeb *web, NSError *error))completion
 {
-    void(^compBlock)(NSArray *) = NULL;
+    void(^compBlock)(NSArray *, NSError *) = NULL;
     if (completion)
-        compBlock = ^(NSArray *items) {
-            completion([items lastObject]);
+        compBlock = ^(NSArray *items, NSError *error) {
+            completion([items lastObject], error);
         };
     
     [self methodForClass:[SPGetWeb class]
@@ -103,17 +106,17 @@
               completion:compBlock];
 }
 
-- (void)getListCollection:(void (^)(NSArray *lists))completion
+- (void)getListCollection:(void (^)(NSArray *lists, NSError *error))completion
 {
     [self methodForClass:[SPGetListCollection class] setup:NULL completion:completion];
 }
 
-- (void)getListWithList:(SPList *)list completion:(void (^)(SPList *list))completion
+- (void)getListWithList:(SPList *)list completion:(void (^)(SPList *list, NSError *error))completion
 {
-    void(^compBlock)(NSArray *) = NULL;
+    void(^compBlock)(NSArray *, NSError *) = NULL;
     if (completion)
-        compBlock = ^(NSArray *items) {
-            completion([items lastObject]);
+        compBlock = ^(NSArray *items, NSError *error) {
+            completion([items lastObject], error);
         };
     
     [self methodForClass:[SPGetList class]
@@ -123,12 +126,12 @@
               completion:compBlock];
 }
 
-- (void)getList:(NSString *)listName completion:(void (^)(SPList *list))completion
+- (void)getList:(NSString *)listName completion:(void (^)(SPList *list, NSError *error))completion
 {
-    void(^compBlock)(NSArray *) = NULL;
+    void(^compBlock)(NSArray *, NSError *) = NULL;
     if (completion)
-        compBlock = ^(NSArray *items) {
-            completion([items lastObject]);
+        compBlock = ^(NSArray *items, NSError *error) {
+            completion([items lastObject], error);
         };
     
     [self methodForClass:[SPGetList class]
@@ -138,17 +141,17 @@
               completion:compBlock];
 }
 
-- (void)getList:(NSString *)listName items:(void (^)(NSArray *items))completion
+- (void)getList:(NSString *)listName items:(void (^)(NSArray *items, NSError *error))completion
 {
     [self getList:listName parentRef:nil items:completion];
 }
 
-- (void)getList:(NSString *)listName parentRef:(NSString *)parentRef items:(void (^)(NSArray *items))completion
+- (void)getList:(NSString *)listName parentRef:(NSString *)parentRef items:(void (^)(NSArray *items, NSError *error))completion
 {
     [self getList:listName parentRef:parentRef setup:NULL items:completion];
 }
 
-- (void)getList:(NSString *)listName parentRef:(NSString *)parentRef setup:(void (^)(SPGetListItems *op))setup items:(void (^)(NSArray *items))completion
+- (void)getList:(NSString *)listName parentRef:(NSString *)parentRef setup:(void (^)(SPGetListItems *op))setup items:(void (^)(NSArray *items, NSError *error))completion
 {
     [self methodForClass:[SPGetListItems class]
                    setup:^(SPGetListItems *op) {
@@ -161,7 +164,7 @@
               completion:completion];
 }
 
-- (void)getList:(NSString *)listName itemID:(NSString *)itemID attachments:(void (^)(NSArray *attachments))completion
+- (void)getList:(NSString *)listName itemID:(NSString *)itemID attachments:(void (^)(NSArray *attachments, NSError *error))completion
 {
     [self methodForClass:[SPGetAttachmentCollection class]
                    setup:^(SPGetAttachmentCollection *op) {
@@ -171,7 +174,7 @@
               completion:completion];
 }
 
-- (void)createList:(NSString *)listName itemWithFields:(NSDictionary *)fields results:(void (^)(NSArray *results))completion
+- (void)createList:(NSString *)listName itemWithFields:(NSDictionary *)fields results:(void (^)(NSArray *results, NSError *error))completion
 {
     [self methodForClass:[SPUpdateListItems class]
                    setup:^(SPUpdateListItems *op) {
@@ -181,7 +184,7 @@
               completion:completion];
 }
 
-- (void)getList:(NSString *)listName views:(void (^)(NSArray *views))completion
+- (void)getList:(NSString *)listName views:(void (^)(NSArray *views, NSError *error))completion
 {
     [self methodForClass:[SPGetViewCollection class]
                    setup:^(SPGetViewCollection *op) {

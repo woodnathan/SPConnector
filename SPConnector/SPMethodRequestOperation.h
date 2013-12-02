@@ -27,7 +27,8 @@
 
 - (id)initWithRequest:(NSURLRequest *)request;
 
-- (NSData *)responseData;
+@property (nonatomic, readonly) NSData *responseData;
+@property (nonatomic, readonly) NSError *error;
 
 - (void)start;
 

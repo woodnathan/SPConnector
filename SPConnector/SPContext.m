@@ -28,7 +28,7 @@
 
 NSString *const SPContextWillBeDeallocated = @"kSPContextWillBeDeallocated";
 
-@interface SPContext ()
+@interface SPContext () <SPMethodDelegate>
 
 @property (nonatomic, copy, readwrite) NSURL *siteURL;
 @property (nonatomic, assign, readwrite) SPSOAPVersion version;
@@ -41,6 +41,7 @@ NSString *const SPContextWillBeDeallocated = @"kSPContextWillBeDeallocated";
 @implementation SPContext
 
 @synthesize siteURL = _siteURL, version = _version;
+@synthesize delegate = _delegate;
 @synthesize requestOperationClass = _requestOperationClass, requestSetupBlock = _requestSetupBlock;
 @synthesize methodQueue = _methodQueue;
 
@@ -90,7 +91,16 @@ NSString *const SPContextWillBeDeallocated = @"kSPContextWillBeDeallocated";
 
 - (void)enqueueMethod:(SPMethod *)method
 {
+    if (method.delegate == nil)
+        method.delegate = self;
     [self.methodQueue addOperation:method];
+}
+
+#pragma mark - Method Delegate
+
+- (void)method:(SPMethod *)method didFailWithError:(NSError *)error
+{
+    [self.delegate context:self didFailWithError:error];
 }
 
 @end

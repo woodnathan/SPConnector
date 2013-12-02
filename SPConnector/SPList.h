@@ -37,10 +37,10 @@
 
 @interface SPList (Operations)
 
-- (void)createItemWithFields:(NSDictionary *)fields completion:(void (^)(NSArray *results))completion;
+- (void)createItemWithFields:(NSDictionary *)fields completion:(void (^)(NSArray *results, NSError *error))completion;
 
-- (void)loadItems:(void (^)(NSArray *items))completion;
-- (void)loadFields:(void (^)(NSArray *fields))completion;
-- (void)loadViews:(void (^)(NSArray *views))completion;
+- (void)loadItems:(void (^)(NSArray *items, NSError *error))completion;
+- (void)loadFields:(void (^)(NSArray *fields, NSError *error))completion;
+- (void)loadViews:(void (^)(NSArray *views, NSError *error))completion;
 
 @end

@@ -45,29 +45,29 @@
     [self.children makeObjectsPerformSelector:@selector(setParent:) withObject:nil];
 }
 
-- (void)loadChildren:(void (^)(NSArray *items))completion
+- (void)loadChildren:(void (^)(NSArray *items, NSError *error))completion
 {
     [self.context getList:self.listName
                 parentRef:self.fileRef
-                    items:^(NSArray *items) {
+                    items:^(NSArray *items, NSError *error) {
                         self.children = items;
                         [self.children makeObjectsPerformSelector:@selector(setParent:) withObject:self];
                         
                         if (completion)
-                            completion(items);
+                            completion(items, error);
                     }];
 }
 
-- (void)loadAttachments:(void (^)(NSArray *attachments))completion
+- (void)loadAttachments:(void (^)(NSArray *attachments, NSError *error))completion
 {
     [self.context getList:self.listName
                    itemID:self.itemID
-              attachments:^(NSArray *attachments) {
+              attachments:^(NSArray *attachments, NSError *error) {
                   self.attachments = attachments;
                   [self.attachments makeObjectsPerformSelector:@selector(setParent:) withObject:self];
                   
                   if (completion)
-                      completion(attachments);
+                      completion(attachments, error);
               }];
 }
 

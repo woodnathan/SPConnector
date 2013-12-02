@@ -56,7 +56,7 @@
 
 @implementation SPMethod
 
-@synthesize context = _context;
+@synthesize context = _context, delegate = _delegate;
 @synthesize requestMessage = _requestMessage, responseMessage = _responseMessage;
 @synthesize queryOptions = _queryOptions;
 @synthesize predicate = _predicate, sortDescriptors = _sortDescriptors;
@@ -214,10 +214,17 @@
 
 - (void)finish
 {
-    NSError *error = nil;
+    NSObject <SPMethodRequestOperation> *requestOperation = self.requestOperation;
+    NSError *requestError = requestOperation.error;
+    NSError *messageError = nil;
     self.responseMessage = [[SPMessage alloc] initWithData:[self.requestOperation responseData]
-                                                     error:&error];
-    self.error = error;
+                                                     error:&messageError];
+    NSError *error = (requestError != nil) ? requestError : messageError;
+    if (error)
+    {
+        self.error = error;
+        [self.delegate method:self didFailWithError:error];
+    }
     
     [self parseResponseMessage];
     

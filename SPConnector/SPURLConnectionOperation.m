@@ -177,6 +177,36 @@
     }
 }
 
+#pragma mark - Error
+
+- (NSError *)error
+{
+    NSHTTPURLResponse *response = (NSHTTPURLResponse *)self.response;
+    if (self->_error == nil && response != nil)
+    {
+        NSUInteger statusCode = 200;
+        if ([response isKindOfClass:[NSHTTPURLResponse class]])
+            statusCode = [response statusCode];
+        
+        NSIndexSet *acceptableStatusCodes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(200, 100)];
+        
+        if ([acceptableStatusCodes containsIndex:statusCode] == NO)
+        {
+            NSMutableDictionary *userInfo = [[NSMutableDictionary alloc] initWithCapacity:3];
+            [userInfo setValue:[self.request URL] forKey:NSURLErrorFailingURLErrorKey];
+            NSString *format = NSLocalizedString(@"Unexpected status code %d", @"");
+            [userInfo setValue:[NSString stringWithFormat:format, statusCode]
+                        forKey:NSLocalizedDescriptionKey];
+            
+            self->_error = [NSError errorWithDomain:NSURLErrorDomain
+                                                 code:NSURLErrorBadServerResponse
+                                             userInfo:userInfo];
+        }
+    }
+    
+    return self->_error;
+}
+
 #pragma mark - Connection
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
@@ -223,7 +253,12 @@
 {
     SPAuthenticationChallengeBlock block = self.authenticationChallengeBlock;
     if (block)
+    {
         block(connection, challenge);
+        return;
+    }
+    
+    [[challenge sender] performDefaultHandlingForAuthenticationChallenge:challenge];
 }
 
 #pragma mark - Threading
