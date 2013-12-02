@@ -18,13 +18,18 @@ Example Usage
 
 ``` objective-c
 NSURL *url = [NSURL URLWithString:@"http://sharepoint.example.com/"];
+NSURLCredential *credential = [credentialWithUser:@"username"
+                                         password:@"password"
+                                      persistence:NSURLCredentialPersistenceNone];
 self.ctx = [[SPContext alloc] initWithSiteURL:url];
-self.ctx.requestOperationClass = [AFSPURLConnectionOperation class];
-[self.ctx setRequestSetupBlock:^(AFURLConnectionOperation *requestOperation) {
+[self.ctx setRequestSetupBlock:^(SPURLConnectionOperation *requestOperation) {
     // Called when a new request is allocated
+    [requestOperation setAuthenticationChallengeBlock:^(NSURLConnection *connection, NSURLAuthenticationChallenge *challenge) {
+        [[challenge sender] useCredential:credential forAuthenticationChallenge:challenge];
+    }];
 }];
 
-[self.ctx getListCollection:^(NSArray *lists) {
+[self.ctx getListCollection:^(NSArray *lists, NSError *error) {
     for (SPList *list in lists) {
         NSLog(@"%@", list.title);
     }
