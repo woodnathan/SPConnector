@@ -44,6 +44,11 @@
     [self.views makeObjectsPerformSelector:@selector(setList:) withObject:nil];
 }
 
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"<%@: %p, title: %@>", NSStringFromClass([self class]), self, self.title];
+}
+
 - (void)makeParentOfObjects:(NSArray *)objects
 {
     [self.items makeObjectsPerformSelector:@selector(setList:) withObject:self];

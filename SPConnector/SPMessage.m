@@ -134,6 +134,8 @@ static void xmlErrorFunc(void *ctx, const char *msg, ...)
                             break;
                         }
                 }
+                
+                free(namespaceList);
             }
             
             self->_version = version;
@@ -166,6 +168,8 @@ static void xmlErrorFunc(void *ctx, const char *msg, ...)
     
     envelope = xmlNewNode(soapNS, (xmlChar*)"Envelope");
     body = xmlNewNode(soapNS, (xmlChar*)"Body");
+    
+    xmlFreeNs(soapNS);
     
     xmlNewNs(envelope, (xmlChar*)SPMessageNamespaceURISchema, (xmlChar*)"xsi");
     xmlNewNs(envelope, (xmlChar*)SPMessageNamespaceURISchemaInstance, (xmlChar*)"xsd");
