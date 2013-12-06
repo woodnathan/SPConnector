@@ -169,10 +169,8 @@ static void xmlErrorFunc(void *ctx, const char *msg, ...)
     envelope = xmlNewNode(soapNS, (xmlChar*)"Envelope");
     body = xmlNewNode(soapNS, (xmlChar*)"Body");
     
-    xmlFreeNs(soapNS);
-    
-    xmlNewNs(envelope, (xmlChar*)SPMessageNamespaceURISchema, (xmlChar*)"xsi");
-    xmlNewNs(envelope, (xmlChar*)SPMessageNamespaceURISchemaInstance, (xmlChar*)"xsd");
+    xmlNewNs(envelope, (xmlChar*)SPMessageNamespaceURISchema, (xmlChar*)"xsd");
+    xmlNewNs(envelope, (xmlChar*)SPMessageNamespaceURISchemaInstance, (xmlChar*)"xsi");
     
     switch (version) {
         case SPSOAPVersion11:
