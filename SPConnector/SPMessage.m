@@ -52,11 +52,12 @@ static void xmlErrorFunc(void *ctx, const char *msg, ...)
 
 @interface SPMessage () {
     xmlDocPtr _xmlDoc;
+    xmlNsPtr _xmlNs; // SOAP namespace
 @protected
     xmlNodePtr _methodNode;
 }
 
-+ (xmlNodePtr)newSOAPEnvelopeNodeWithVersion:(SPSOAPVersion)version;
++ (xmlNodePtr)newSOAPEnvelopeNodeWithVersion:(SPSOAPVersion)version namespace:(out xmlNsPtr *)namespace;
 
 - (void)enumerateNodesForXPath:(NSString *)path namespace:(void (^)(xmlXPathContextPtr ctx))namespace withBlock:(void (^)(xmlNodePtr node, BOOL *stop))block;
 
@@ -81,7 +82,7 @@ static void xmlErrorFunc(void *ctx, const char *msg, ...)
         
         _xmlDoc = xmlNewDoc(NULL);
         
-        xmlNodePtr envelope = [[self class] newSOAPEnvelopeNodeWithVersion:version];
+        xmlNodePtr envelope = [[self class] newSOAPEnvelopeNodeWithVersion:version namespace:&self->_xmlNs];
         xmlDocSetRootElement(_xmlDoc, envelope);
         
         _methodNode = xmlNewNode(NULL, (xmlChar *)[method UTF8String]);
@@ -149,9 +150,12 @@ static void xmlErrorFunc(void *ctx, const char *msg, ...)
     xmlFreeDoc(_xmlDoc);
     _methodNode = NULL;
     _xmlDoc = NULL;
+    
+    if (_xmlNs)
+        xmlFreeNs(_xmlNs), _xmlNs = NULL;
 }
 
-+ (xmlNodePtr)newSOAPEnvelopeNodeWithVersion:(SPSOAPVersion)version
++ (xmlNodePtr)newSOAPEnvelopeNodeWithVersion:(SPSOAPVersion)version namespace:(out xmlNsPtr *)namespace
 {
     xmlNsPtr soapNS = NULL;
     xmlNodePtr envelope = NULL, body = NULL;
@@ -183,6 +187,9 @@ static void xmlErrorFunc(void *ctx, const char *msg, ...)
     }
     
     xmlAddChild(envelope, body);
+    
+    if (namespace != NULL)
+        *namespace = soapNS;
     
     return envelope;
 }
