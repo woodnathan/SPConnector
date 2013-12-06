@@ -168,7 +168,7 @@ NSString *fastGetter(id self, SEL _cmd)
         
         objc_property_t prop = class_getProperty([self class], [key UTF8String]);
         if (prop == nil)
-            return nil;
+            return retVal;
         NSString *type = [NSString stringWithUTF8String:property_getType(prop)];
         id <SPObjectPropertyConverter> converter = [SPObjectPropertyConverterFactory converterForType:type];
         
