@@ -250,14 +250,46 @@ static inline xmlNodePtr xmlNewElement(const char *name);
 {
     xmlNodePtr valueElement = xmlNewElement("Value");
     
+    char *valueType = NULL;
+    
     NSString *content = nil;
     if ([constant isKindOfClass:[NSString class]])
+    {
         content = (NSString *)constant;
+    }
     else
         if ([constant isKindOfClass:[NSNumber class]])
-            content = [(NSNumber *)constant stringValue];
+        {
+            NSNumber *number = constant;
+            content = [number stringValue];
+            
+            const char *objCType = [number objCType];
+            char type = objCType[0];
+            
+            #define TYPE(ctype) (type == @encode(ctype)[0])
+            
+            if (TYPE(char) ||
+                TYPE(unsigned char) ||
+                TYPE(short) ||
+                TYPE(unsigned short) ||
+                TYPE(int) ||
+                TYPE(unsigned int) ||
+                TYPE(long) ||
+                TYPE(unsigned long) ||
+                TYPE(long long) ||
+                TYPE(unsigned long long) ||
+                TYPE(float) ||
+                TYPE(double))
+            {
+                valueType = "integer";
+            }
+            
+        }
     
     xmlNodeSetContent(valueElement, (xmlChar *)[content UTF8String]);
+    
+    if (valueType != NULL)
+        xmlNewProp(valueElement, (const xmlChar *)"Type", (const xmlChar *)valueType);
     
     return valueElement;
 }
