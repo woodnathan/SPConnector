@@ -55,7 +55,8 @@
     
     for (NSSortDescriptor *descriptor in descriptors)
     {
-        NSString *fieldName = [mapping objectForKey:descriptor.key] ?: descriptor.key;
+        NSString *fieldName = [mapping objectForKey:descriptor.key] ?
+        [mapping objectForKey:descriptor.key] : descriptor.key;
         xmlNodePtr field = [self fieldRefElementWithName:fieldName];
         
         const char *asc = descriptor.ascending ? "True" : "False";
