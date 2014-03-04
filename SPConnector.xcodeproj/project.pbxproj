@@ -7,6 +7,74 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		391B18E718C52F9300583597 /* SPAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18A318C52F9300583597 /* SPAttachment.h */; };
+		391B18E818C52F9300583597 /* SPAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18A418C52F9300583597 /* SPAttachment.m */; };
+		391B18E918C52F9300583597 /* SPCAMLBatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18A518C52F9300583597 /* SPCAMLBatch.h */; };
+		391B18EA18C52F9300583597 /* SPCAMLBatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18A618C52F9300583597 /* SPCAMLBatch.m */; };
+		391B18EB18C52F9300583597 /* SPCAMLMethod.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18A718C52F9300583597 /* SPCAMLMethod.h */; };
+		391B18EC18C52F9300583597 /* SPCAMLMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18A818C52F9300583597 /* SPCAMLMethod.m */; };
+		391B18ED18C52F9300583597 /* SPCAMLQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18A918C52F9300583597 /* SPCAMLQuery.h */; };
+		391B18EE18C52F9300583597 /* SPCAMLQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18AA18C52F9300583597 /* SPCAMLQuery.m */; };
+		391B18EF18C52F9300583597 /* SPCAMLQueryOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18AB18C52F9300583597 /* SPCAMLQueryOptions.h */; };
+		391B18F018C52F9300583597 /* SPCAMLQueryOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18AC18C52F9300583597 /* SPCAMLQueryOptions.m */; };
+		391B18F118C52F9300583597 /* SPContext+Operations.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18AD18C52F9300583597 /* SPContext+Operations.m */; };
+		391B18F218C52F9300583597 /* SPGetAttachmentCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18AE18C52F9300583597 /* SPGetAttachmentCollection.h */; };
+		391B18F318C52F9300583597 /* SPGetAttachmentCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18AF18C52F9300583597 /* SPGetAttachmentCollection.m */; };
+		391B18F418C52F9300583597 /* SPGetList.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18B018C52F9300583597 /* SPGetList.h */; };
+		391B18F518C52F9300583597 /* SPGetList.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18B118C52F9300583597 /* SPGetList.m */; };
+		391B18F618C52F9300583597 /* SPGetViewCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18B218C52F9300583597 /* SPGetViewCollection.h */; };
+		391B18F718C52F9300583597 /* SPGetViewCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18B318C52F9300583597 /* SPGetViewCollection.m */; };
+		391B18F818C52F9300583597 /* SPGetWeb.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18B418C52F9300583597 /* SPGetWeb.h */; };
+		391B18F918C52F9300583597 /* SPGetWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18B518C52F9300583597 /* SPGetWeb.m */; };
+		391B18FA18C52F9300583597 /* SPList+Operations.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18B618C52F9300583597 /* SPList+Operations.m */; };
+		391B18FB18C52F9300583597 /* SPListAttachedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18B718C52F9300583597 /* SPListAttachedObject.h */; };
+		391B18FC18C52F9300583597 /* SPListAttachedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18B818C52F9300583597 /* SPListAttachedObject.m */; };
+		391B18FD18C52F9300583597 /* SPListDocumentItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18B918C52F9300583597 /* SPListDocumentItem.h */; };
+		391B18FE18C52F9300583597 /* SPListDocumentItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18BA18C52F9300583597 /* SPListDocumentItem.m */; };
+		391B18FF18C52F9300583597 /* SPListEventItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18BB18C52F9300583597 /* SPListEventItem.h */; };
+		391B190018C52F9300583597 /* SPListEventItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18BC18C52F9300583597 /* SPListEventItem.m */; };
+		391B190118C52F9300583597 /* SPListField.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18BD18C52F9300583597 /* SPListField.h */; };
+		391B190218C52F9300583597 /* SPListField.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18BE18C52F9300583597 /* SPListField.m */; };
+		391B190318C52F9300583597 /* SPListFieldMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18BF18C52F9300583597 /* SPListFieldMapping.h */; };
+		391B190418C52F9300583597 /* SPListFieldMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18C018C52F9300583597 /* SPListFieldMapping.m */; };
+		391B190518C52F9300583597 /* SPListItemMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18C118C52F9300583597 /* SPListItemMapping.h */; };
+		391B190618C52F9300583597 /* SPListItemMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18C218C52F9300583597 /* SPListItemMapping.m */; };
+		391B190718C52F9300583597 /* SPListMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18C318C52F9300583597 /* SPListMapping.h */; };
+		391B190818C52F9300583597 /* SPListMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18C418C52F9300583597 /* SPListMapping.m */; };
+		391B190918C52F9300583597 /* SPListMethod.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18C518C52F9300583597 /* SPListMethod.h */; };
+		391B190A18C52F9300583597 /* SPListMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18C618C52F9300583597 /* SPListMethod.m */; };
+		391B190B18C52F9300583597 /* SPObjectMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18C718C52F9300583597 /* SPObjectMapping.h */; };
+		391B190C18C52F9300583597 /* SPObjectMappingBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18C818C52F9300583597 /* SPObjectMappingBase.h */; };
+		391B190D18C52F9300583597 /* SPObjectMappingBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18C918C52F9300583597 /* SPObjectMappingBase.m */; };
+		391B190E18C52F9300583597 /* SPObjectMappingFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18CA18C52F9300583597 /* SPObjectMappingFactory.h */; };
+		391B190F18C52F9300583597 /* SPObjectMappingFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18CB18C52F9300583597 /* SPObjectMappingFactory.m */; };
+		391B191018C52F9300583597 /* SPObjectPropertyBooleanConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18CC18C52F9300583597 /* SPObjectPropertyBooleanConverter.h */; };
+		391B191118C52F9300583597 /* SPObjectPropertyBooleanConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18CD18C52F9300583597 /* SPObjectPropertyBooleanConverter.m */; };
+		391B191218C52F9300583597 /* SPObjectPropertyConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18CE18C52F9300583597 /* SPObjectPropertyConverter.h */; };
+		391B191318C52F9300583597 /* SPObjectPropertyConverterFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18CF18C52F9300583597 /* SPObjectPropertyConverterFactory.h */; };
+		391B191418C52F9300583597 /* SPObjectPropertyConverterFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18D018C52F9300583597 /* SPObjectPropertyConverterFactory.m */; };
+		391B191518C52F9300583597 /* SPObjectPropertyDateConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18D118C52F9300583597 /* SPObjectPropertyDateConverter.h */; };
+		391B191618C52F9300583597 /* SPObjectPropertyDateConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18D218C52F9300583597 /* SPObjectPropertyDateConverter.m */; };
+		391B191718C52F9300583597 /* SPObjectPropertyNumberConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18D318C52F9300583597 /* SPObjectPropertyNumberConverter.h */; };
+		391B191818C52F9300583597 /* SPObjectPropertyNumberConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18D418C52F9300583597 /* SPObjectPropertyNumberConverter.m */; };
+		391B191918C52F9300583597 /* SPObjectPropertyStringConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18D518C52F9300583597 /* SPObjectPropertyStringConverter.h */; };
+		391B191A18C52F9300583597 /* SPObjectPropertyStringConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18D618C52F9300583597 /* SPObjectPropertyStringConverter.m */; };
+		391B191B18C52F9300583597 /* SPPredicateTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18D718C52F9300583597 /* SPPredicateTransformer.h */; };
+		391B191C18C52F9300583597 /* SPPredicateTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18D818C52F9300583597 /* SPPredicateTransformer.m */; };
+		391B191D18C52F9300583597 /* SPSitesMethod.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18D918C52F9300583597 /* SPSitesMethod.h */; };
+		391B191E18C52F9300583597 /* SPSitesMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18DA18C52F9300583597 /* SPSitesMethod.m */; };
+		391B191F18C52F9300583597 /* SPSortTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18DB18C52F9300583597 /* SPSortTransformer.h */; };
+		391B192018C52F9300583597 /* SPSortTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18DC18C52F9300583597 /* SPSortTransformer.m */; };
+		391B192118C52F9300583597 /* SPUpdateListItems.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18DD18C52F9300583597 /* SPUpdateListItems.h */; };
+		391B192218C52F9300583597 /* SPUpdateListItems.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18DE18C52F9300583597 /* SPUpdateListItems.m */; };
+		391B192318C52F9300583597 /* SPView.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18DF18C52F9300583597 /* SPView.h */; };
+		391B192418C52F9300583597 /* SPView.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18E018C52F9300583597 /* SPView.m */; };
+		391B192518C52F9300583597 /* SPViewMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18E118C52F9300583597 /* SPViewMapping.h */; };
+		391B192618C52F9300583597 /* SPViewMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18E218C52F9300583597 /* SPViewMapping.m */; };
+		391B192718C52F9300583597 /* SPViewsMethod.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18E318C52F9300583597 /* SPViewsMethod.h */; };
+		391B192818C52F9300583597 /* SPViewsMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18E418C52F9300583597 /* SPViewsMethod.m */; };
+		391B192918C52F9300583597 /* SPWebMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 391B18E518C52F9300583597 /* SPWebMapping.h */; };
+		391B192A18C52F9300583597 /* SPWebMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 391B18E618C52F9300583597 /* SPWebMapping.m */; };
 		D821B6B9184C8605009CCF77 /* SPURLConnectionOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = D821B6B7184C8605009CCF77 /* SPURLConnectionOperation.h */; };
 		D821B6BA184C8605009CCF77 /* SPURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D821B6B8184C8605009CCF77 /* SPURLConnectionOperation.m */; };
 		D834F300163F7F3200D4563F /* SPObject.h in Headers */ = {isa = PBXBuildFile; fileRef = D834F2FE163F7F3200D4563F /* SPObject.h */; };
@@ -40,6 +108,74 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		391B18A318C52F9300583597 /* SPAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPAttachment.h; sourceTree = "<group>"; };
+		391B18A418C52F9300583597 /* SPAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPAttachment.m; sourceTree = "<group>"; };
+		391B18A518C52F9300583597 /* SPCAMLBatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPCAMLBatch.h; sourceTree = "<group>"; };
+		391B18A618C52F9300583597 /* SPCAMLBatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPCAMLBatch.m; sourceTree = "<group>"; };
+		391B18A718C52F9300583597 /* SPCAMLMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPCAMLMethod.h; sourceTree = "<group>"; };
+		391B18A818C52F9300583597 /* SPCAMLMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPCAMLMethod.m; sourceTree = "<group>"; };
+		391B18A918C52F9300583597 /* SPCAMLQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPCAMLQuery.h; sourceTree = "<group>"; };
+		391B18AA18C52F9300583597 /* SPCAMLQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPCAMLQuery.m; sourceTree = "<group>"; };
+		391B18AB18C52F9300583597 /* SPCAMLQueryOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPCAMLQueryOptions.h; sourceTree = "<group>"; };
+		391B18AC18C52F9300583597 /* SPCAMLQueryOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPCAMLQueryOptions.m; sourceTree = "<group>"; };
+		391B18AD18C52F9300583597 /* SPContext+Operations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SPContext+Operations.m"; sourceTree = "<group>"; };
+		391B18AE18C52F9300583597 /* SPGetAttachmentCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGetAttachmentCollection.h; sourceTree = "<group>"; };
+		391B18AF18C52F9300583597 /* SPGetAttachmentCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGetAttachmentCollection.m; sourceTree = "<group>"; };
+		391B18B018C52F9300583597 /* SPGetList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGetList.h; sourceTree = "<group>"; };
+		391B18B118C52F9300583597 /* SPGetList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGetList.m; sourceTree = "<group>"; };
+		391B18B218C52F9300583597 /* SPGetViewCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGetViewCollection.h; sourceTree = "<group>"; };
+		391B18B318C52F9300583597 /* SPGetViewCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGetViewCollection.m; sourceTree = "<group>"; };
+		391B18B418C52F9300583597 /* SPGetWeb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGetWeb.h; sourceTree = "<group>"; };
+		391B18B518C52F9300583597 /* SPGetWeb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGetWeb.m; sourceTree = "<group>"; };
+		391B18B618C52F9300583597 /* SPList+Operations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SPList+Operations.m"; sourceTree = "<group>"; };
+		391B18B718C52F9300583597 /* SPListAttachedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPListAttachedObject.h; sourceTree = "<group>"; };
+		391B18B818C52F9300583597 /* SPListAttachedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPListAttachedObject.m; sourceTree = "<group>"; };
+		391B18B918C52F9300583597 /* SPListDocumentItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPListDocumentItem.h; sourceTree = "<group>"; };
+		391B18BA18C52F9300583597 /* SPListDocumentItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPListDocumentItem.m; sourceTree = "<group>"; };
+		391B18BB18C52F9300583597 /* SPListEventItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPListEventItem.h; sourceTree = "<group>"; };
+		391B18BC18C52F9300583597 /* SPListEventItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPListEventItem.m; sourceTree = "<group>"; };
+		391B18BD18C52F9300583597 /* SPListField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPListField.h; sourceTree = "<group>"; };
+		391B18BE18C52F9300583597 /* SPListField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPListField.m; sourceTree = "<group>"; };
+		391B18BF18C52F9300583597 /* SPListFieldMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPListFieldMapping.h; sourceTree = "<group>"; };
+		391B18C018C52F9300583597 /* SPListFieldMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPListFieldMapping.m; sourceTree = "<group>"; };
+		391B18C118C52F9300583597 /* SPListItemMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPListItemMapping.h; sourceTree = "<group>"; };
+		391B18C218C52F9300583597 /* SPListItemMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPListItemMapping.m; sourceTree = "<group>"; };
+		391B18C318C52F9300583597 /* SPListMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPListMapping.h; sourceTree = "<group>"; };
+		391B18C418C52F9300583597 /* SPListMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPListMapping.m; sourceTree = "<group>"; };
+		391B18C518C52F9300583597 /* SPListMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPListMethod.h; sourceTree = "<group>"; };
+		391B18C618C52F9300583597 /* SPListMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPListMethod.m; sourceTree = "<group>"; };
+		391B18C718C52F9300583597 /* SPObjectMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPObjectMapping.h; sourceTree = "<group>"; };
+		391B18C818C52F9300583597 /* SPObjectMappingBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPObjectMappingBase.h; sourceTree = "<group>"; };
+		391B18C918C52F9300583597 /* SPObjectMappingBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPObjectMappingBase.m; sourceTree = "<group>"; };
+		391B18CA18C52F9300583597 /* SPObjectMappingFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPObjectMappingFactory.h; sourceTree = "<group>"; };
+		391B18CB18C52F9300583597 /* SPObjectMappingFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPObjectMappingFactory.m; sourceTree = "<group>"; };
+		391B18CC18C52F9300583597 /* SPObjectPropertyBooleanConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPObjectPropertyBooleanConverter.h; sourceTree = "<group>"; };
+		391B18CD18C52F9300583597 /* SPObjectPropertyBooleanConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPObjectPropertyBooleanConverter.m; sourceTree = "<group>"; };
+		391B18CE18C52F9300583597 /* SPObjectPropertyConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPObjectPropertyConverter.h; sourceTree = "<group>"; };
+		391B18CF18C52F9300583597 /* SPObjectPropertyConverterFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPObjectPropertyConverterFactory.h; sourceTree = "<group>"; };
+		391B18D018C52F9300583597 /* SPObjectPropertyConverterFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPObjectPropertyConverterFactory.m; sourceTree = "<group>"; };
+		391B18D118C52F9300583597 /* SPObjectPropertyDateConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPObjectPropertyDateConverter.h; sourceTree = "<group>"; };
+		391B18D218C52F9300583597 /* SPObjectPropertyDateConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPObjectPropertyDateConverter.m; sourceTree = "<group>"; };
+		391B18D318C52F9300583597 /* SPObjectPropertyNumberConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPObjectPropertyNumberConverter.h; sourceTree = "<group>"; };
+		391B18D418C52F9300583597 /* SPObjectPropertyNumberConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPObjectPropertyNumberConverter.m; sourceTree = "<group>"; };
+		391B18D518C52F9300583597 /* SPObjectPropertyStringConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPObjectPropertyStringConverter.h; sourceTree = "<group>"; };
+		391B18D618C52F9300583597 /* SPObjectPropertyStringConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPObjectPropertyStringConverter.m; sourceTree = "<group>"; };
+		391B18D718C52F9300583597 /* SPPredicateTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPPredicateTransformer.h; sourceTree = "<group>"; };
+		391B18D818C52F9300583597 /* SPPredicateTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPPredicateTransformer.m; sourceTree = "<group>"; };
+		391B18D918C52F9300583597 /* SPSitesMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPSitesMethod.h; sourceTree = "<group>"; };
+		391B18DA18C52F9300583597 /* SPSitesMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPSitesMethod.m; sourceTree = "<group>"; };
+		391B18DB18C52F9300583597 /* SPSortTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPSortTransformer.h; sourceTree = "<group>"; };
+		391B18DC18C52F9300583597 /* SPSortTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPSortTransformer.m; sourceTree = "<group>"; };
+		391B18DD18C52F9300583597 /* SPUpdateListItems.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPUpdateListItems.h; sourceTree = "<group>"; };
+		391B18DE18C52F9300583597 /* SPUpdateListItems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPUpdateListItems.m; sourceTree = "<group>"; };
+		391B18DF18C52F9300583597 /* SPView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPView.h; sourceTree = "<group>"; };
+		391B18E018C52F9300583597 /* SPView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPView.m; sourceTree = "<group>"; };
+		391B18E118C52F9300583597 /* SPViewMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPViewMapping.h; sourceTree = "<group>"; };
+		391B18E218C52F9300583597 /* SPViewMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPViewMapping.m; sourceTree = "<group>"; };
+		391B18E318C52F9300583597 /* SPViewsMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPViewsMethod.h; sourceTree = "<group>"; };
+		391B18E418C52F9300583597 /* SPViewsMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPViewsMethod.m; sourceTree = "<group>"; };
+		391B18E518C52F9300583597 /* SPWebMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPWebMapping.h; sourceTree = "<group>"; };
+		391B18E618C52F9300583597 /* SPWebMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPWebMapping.m; sourceTree = "<group>"; };
 		D821B6B6184C84B6009CCF77 /* SPMethodRequestOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPMethodRequestOperation.h; sourceTree = "<group>"; };
 		D821B6B7184C8605009CCF77 /* SPURLConnectionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPURLConnectionOperation.h; sourceTree = "<group>"; };
 		D821B6B8184C8605009CCF77 /* SPURLConnectionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPURLConnectionOperation.m; sourceTree = "<group>"; };
@@ -88,6 +224,81 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		391B18A218C52F7F00583597 /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				391B18A318C52F9300583597 /* SPAttachment.h */,
+				391B18A418C52F9300583597 /* SPAttachment.m */,
+				391B18A518C52F9300583597 /* SPCAMLBatch.h */,
+				391B18A618C52F9300583597 /* SPCAMLBatch.m */,
+				391B18A718C52F9300583597 /* SPCAMLMethod.h */,
+				391B18A818C52F9300583597 /* SPCAMLMethod.m */,
+				391B18A918C52F9300583597 /* SPCAMLQuery.h */,
+				391B18AA18C52F9300583597 /* SPCAMLQuery.m */,
+				391B18AB18C52F9300583597 /* SPCAMLQueryOptions.h */,
+				391B18AC18C52F9300583597 /* SPCAMLQueryOptions.m */,
+				391B18AD18C52F9300583597 /* SPContext+Operations.m */,
+				391B18AE18C52F9300583597 /* SPGetAttachmentCollection.h */,
+				391B18AF18C52F9300583597 /* SPGetAttachmentCollection.m */,
+				391B18B018C52F9300583597 /* SPGetList.h */,
+				391B18B118C52F9300583597 /* SPGetList.m */,
+				391B18B218C52F9300583597 /* SPGetViewCollection.h */,
+				391B18B318C52F9300583597 /* SPGetViewCollection.m */,
+				391B18B418C52F9300583597 /* SPGetWeb.h */,
+				391B18B518C52F9300583597 /* SPGetWeb.m */,
+				391B18B618C52F9300583597 /* SPList+Operations.m */,
+				391B18B718C52F9300583597 /* SPListAttachedObject.h */,
+				391B18B818C52F9300583597 /* SPListAttachedObject.m */,
+				391B18B918C52F9300583597 /* SPListDocumentItem.h */,
+				391B18BA18C52F9300583597 /* SPListDocumentItem.m */,
+				391B18BB18C52F9300583597 /* SPListEventItem.h */,
+				391B18BC18C52F9300583597 /* SPListEventItem.m */,
+				391B18BD18C52F9300583597 /* SPListField.h */,
+				391B18BE18C52F9300583597 /* SPListField.m */,
+				391B18BF18C52F9300583597 /* SPListFieldMapping.h */,
+				391B18C018C52F9300583597 /* SPListFieldMapping.m */,
+				391B18C118C52F9300583597 /* SPListItemMapping.h */,
+				391B18C218C52F9300583597 /* SPListItemMapping.m */,
+				391B18C318C52F9300583597 /* SPListMapping.h */,
+				391B18C418C52F9300583597 /* SPListMapping.m */,
+				391B18C518C52F9300583597 /* SPListMethod.h */,
+				391B18C618C52F9300583597 /* SPListMethod.m */,
+				391B18C718C52F9300583597 /* SPObjectMapping.h */,
+				391B18C818C52F9300583597 /* SPObjectMappingBase.h */,
+				391B18C918C52F9300583597 /* SPObjectMappingBase.m */,
+				391B18CA18C52F9300583597 /* SPObjectMappingFactory.h */,
+				391B18CB18C52F9300583597 /* SPObjectMappingFactory.m */,
+				391B18CC18C52F9300583597 /* SPObjectPropertyBooleanConverter.h */,
+				391B18CD18C52F9300583597 /* SPObjectPropertyBooleanConverter.m */,
+				391B18CE18C52F9300583597 /* SPObjectPropertyConverter.h */,
+				391B18CF18C52F9300583597 /* SPObjectPropertyConverterFactory.h */,
+				391B18D018C52F9300583597 /* SPObjectPropertyConverterFactory.m */,
+				391B18D118C52F9300583597 /* SPObjectPropertyDateConverter.h */,
+				391B18D218C52F9300583597 /* SPObjectPropertyDateConverter.m */,
+				391B18D318C52F9300583597 /* SPObjectPropertyNumberConverter.h */,
+				391B18D418C52F9300583597 /* SPObjectPropertyNumberConverter.m */,
+				391B18D518C52F9300583597 /* SPObjectPropertyStringConverter.h */,
+				391B18D618C52F9300583597 /* SPObjectPropertyStringConverter.m */,
+				391B18D718C52F9300583597 /* SPPredicateTransformer.h */,
+				391B18D818C52F9300583597 /* SPPredicateTransformer.m */,
+				391B18D918C52F9300583597 /* SPSitesMethod.h */,
+				391B18DA18C52F9300583597 /* SPSitesMethod.m */,
+				391B18DB18C52F9300583597 /* SPSortTransformer.h */,
+				391B18DC18C52F9300583597 /* SPSortTransformer.m */,
+				391B18DD18C52F9300583597 /* SPUpdateListItems.h */,
+				391B18DE18C52F9300583597 /* SPUpdateListItems.m */,
+				391B18DF18C52F9300583597 /* SPView.h */,
+				391B18E018C52F9300583597 /* SPView.m */,
+				391B18E118C52F9300583597 /* SPViewMapping.h */,
+				391B18E218C52F9300583597 /* SPViewMapping.m */,
+				391B18E318C52F9300583597 /* SPViewsMethod.h */,
+				391B18E418C52F9300583597 /* SPViewsMethod.m */,
+				391B18E518C52F9300583597 /* SPWebMapping.h */,
+				391B18E618C52F9300583597 /* SPWebMapping.m */,
+			);
+			name = Misc;
+			sourceTree = "<group>";
+		};
 		D834F303163F804F00D4563F /* Context */ = {
 			isa = PBXGroup;
 			children = (
@@ -196,6 +407,7 @@
 		D890B226163F786800734279 /* SPConnector */ = {
 			isa = PBXGroup;
 			children = (
+				391B18A218C52F7F00583597 /* Misc */,
 				D86E881B16400D440039EF9A /* SPConnector.h */,
 				D834F303163F804F00D4563F /* Context */,
 				D834F304163F805900D4563F /* Method */,
@@ -214,21 +426,55 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				391B18E718C52F9300583597 /* SPAttachment.h in Headers */,
 				D890B22A163F78D700734279 /* SPContext.h in Headers */,
+				391B190B18C52F9300583597 /* SPObjectMapping.h in Headers */,
+				391B18F418C52F9300583597 /* SPGetList.h in Headers */,
 				D834F300163F7F3200D4563F /* SPObject.h in Headers */,
+				391B190918C52F9300583597 /* SPListMethod.h in Headers */,
+				391B192918C52F9300583597 /* SPWebMapping.h in Headers */,
 				D834F307163F806800D4563F /* SPMethod.h in Headers */,
+				391B192718C52F9300583597 /* SPViewsMethod.h in Headers */,
+				391B191218C52F9300583597 /* SPObjectPropertyConverter.h in Headers */,
+				391B18F618C52F9300583597 /* SPGetViewCollection.h in Headers */,
+				391B191D18C52F9300583597 /* SPSitesMethod.h in Headers */,
+				391B191B18C52F9300583597 /* SPPredicateTransformer.h in Headers */,
 				D834F30A163F808F00D4563F /* SPMethodRequest.h in Headers */,
+				391B190518C52F9300583597 /* SPListItemMapping.h in Headers */,
 				D834F30E163F81FD00D4563F /* SPMessage.h in Headers */,
+				391B18ED18C52F9300583597 /* SPCAMLQuery.h in Headers */,
+				391B18F818C52F9300583597 /* SPGetWeb.h in Headers */,
 				D834F33A163F9D7F00D4563F /* SPGetListCollection.h in Headers */,
+				391B18FB18C52F9300583597 /* SPListAttachedObject.h in Headers */,
+				391B18EF18C52F9300583597 /* SPCAMLQueryOptions.h in Headers */,
 				D834F33E163F9DBA00D4563F /* SPListsMethod.h in Headers */,
+				391B190718C52F9300583597 /* SPListMapping.h in Headers */,
 				D821B6B9184C8605009CCF77 /* SPURLConnectionOperation.h in Headers */,
+				391B18FF18C52F9300583597 /* SPListEventItem.h in Headers */,
+				391B190E18C52F9300583597 /* SPObjectMappingFactory.h in Headers */,
+				391B191918C52F9300583597 /* SPObjectPropertyStringConverter.h in Headers */,
+				391B190C18C52F9300583597 /* SPObjectMappingBase.h in Headers */,
+				391B192318C52F9300583597 /* SPView.h in Headers */,
+				391B191318C52F9300583597 /* SPObjectPropertyConverterFactory.h in Headers */,
 				D834F343163F9F0C00D4563F /* SPList.h in Headers */,
+				391B192118C52F9300583597 /* SPUpdateListItems.h in Headers */,
 				D834F35B163FDEC800D4563F /* SPGetListItems.h in Headers */,
+				391B190118C52F9300583597 /* SPListField.h in Headers */,
+				391B192518C52F9300583597 /* SPViewMapping.h in Headers */,
 				D834F35F163FDEDF00D4563F /* SPListItem.h in Headers */,
+				391B191518C52F9300583597 /* SPObjectPropertyDateConverter.h in Headers */,
+				391B190318C52F9300583597 /* SPListFieldMapping.h in Headers */,
+				391B18E918C52F9300583597 /* SPCAMLBatch.h in Headers */,
+				391B18FD18C52F9300583597 /* SPListDocumentItem.h in Headers */,
 				D86E881C16400D440039EF9A /* SPConnector.h in Headers */,
 				D8742BD016463EFD00D67419 /* SPWeb.h in Headers */,
+				391B191018C52F9300583597 /* SPObjectPropertyBooleanConverter.h in Headers */,
+				391B18F218C52F9300583597 /* SPGetAttachmentCollection.h in Headers */,
+				391B18EB18C52F9300583597 /* SPCAMLMethod.h in Headers */,
+				391B191718C52F9300583597 /* SPObjectPropertyNumberConverter.h in Headers */,
 				D8742BD616463F5700D67419 /* SPWebsMethod.h in Headers */,
 				D8742BDA16463F8300D67419 /* SPGetWebCollection.h in Headers */,
+				391B191F18C52F9300583597 /* SPSortTransformer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,18 +529,52 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				391B192818C52F9300583597 /* SPViewsMethod.m in Sources */,
 				D890B22B163F78D700734279 /* SPContext.m in Sources */,
+				391B18E818C52F9300583597 /* SPAttachment.m in Sources */,
+				391B191C18C52F9300583597 /* SPPredicateTransformer.m in Sources */,
+				391B18F518C52F9300583597 /* SPGetList.m in Sources */,
 				D834F301163F7F3200D4563F /* SPObject.m in Sources */,
+				391B18FE18C52F9300583597 /* SPListDocumentItem.m in Sources */,
+				391B18FA18C52F9300583597 /* SPList+Operations.m in Sources */,
 				D834F308163F806800D4563F /* SPMethod.m in Sources */,
+				391B192018C52F9300583597 /* SPSortTransformer.m in Sources */,
+				391B18F118C52F9300583597 /* SPContext+Operations.m in Sources */,
+				391B191618C52F9300583597 /* SPObjectPropertyDateConverter.m in Sources */,
+				391B191E18C52F9300583597 /* SPSitesMethod.m in Sources */,
+				391B192618C52F9300583597 /* SPViewMapping.m in Sources */,
+				391B191118C52F9300583597 /* SPObjectPropertyBooleanConverter.m in Sources */,
+				391B18EE18C52F9300583597 /* SPCAMLQuery.m in Sources */,
+				391B190A18C52F9300583597 /* SPListMethod.m in Sources */,
+				391B190018C52F9300583597 /* SPListEventItem.m in Sources */,
+				391B18F318C52F9300583597 /* SPGetAttachmentCollection.m in Sources */,
+				391B192418C52F9300583597 /* SPView.m in Sources */,
+				391B18F718C52F9300583597 /* SPGetViewCollection.m in Sources */,
+				391B190F18C52F9300583597 /* SPObjectMappingFactory.m in Sources */,
 				D834F30F163F81FD00D4563F /* SPMessage.m in Sources */,
+				391B18FC18C52F9300583597 /* SPListAttachedObject.m in Sources */,
+				391B18F918C52F9300583597 /* SPGetWeb.m in Sources */,
+				391B191A18C52F9300583597 /* SPObjectPropertyStringConverter.m in Sources */,
+				391B190D18C52F9300583597 /* SPObjectMappingBase.m in Sources */,
 				D834F33B163F9D7F00D4563F /* SPGetListCollection.m in Sources */,
 				D834F33F163F9DBA00D4563F /* SPListsMethod.m in Sources */,
 				D834F344163F9F0C00D4563F /* SPList.m in Sources */,
 				D834F35C163FDEC800D4563F /* SPGetListItems.m in Sources */,
+				391B190218C52F9300583597 /* SPListField.m in Sources */,
 				D834F360163FDEDF00D4563F /* SPListItem.m in Sources */,
+				391B18EC18C52F9300583597 /* SPCAMLMethod.m in Sources */,
+				391B190618C52F9300583597 /* SPListItemMapping.m in Sources */,
+				391B18EA18C52F9300583597 /* SPCAMLBatch.m in Sources */,
+				391B191418C52F9300583597 /* SPObjectPropertyConverterFactory.m in Sources */,
+				391B191818C52F9300583597 /* SPObjectPropertyNumberConverter.m in Sources */,
 				D8742BD116463EFD00D67419 /* SPWeb.m in Sources */,
+				391B190818C52F9300583597 /* SPListMapping.m in Sources */,
+				391B190418C52F9300583597 /* SPListFieldMapping.m in Sources */,
 				D8742BD716463F5700D67419 /* SPWebsMethod.m in Sources */,
+				391B18F018C52F9300583597 /* SPCAMLQueryOptions.m in Sources */,
 				D821B6BA184C8605009CCF77 /* SPURLConnectionOperation.m in Sources */,
+				391B192218C52F9300583597 /* SPUpdateListItems.m in Sources */,
+				391B192A18C52F9300583597 /* SPWebMapping.m in Sources */,
 				D8742BDB16463F8300D67419 /* SPGetWebCollection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

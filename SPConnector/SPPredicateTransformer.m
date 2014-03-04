@@ -136,7 +136,8 @@ static inline xmlNodePtr xmlNewElement(const char *name);
     if (comparisonNode == NULL)
         return NULL;
     
-    NSString *fieldName = [mapping objectForKey:leftExp.keyPath] ?: leftExp.keyPath;
+    NSString *fieldName = [mapping objectForKey:leftExp.keyPath] ?
+    [mapping objectForKey:leftExp.keyPath] : leftExp.keyPath;
     
     if (rightExp.constantValue)
     {
