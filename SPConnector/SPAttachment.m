@@ -37,12 +37,31 @@
 
 - (id)initWithNode:(xmlNodePtr)node context:(SPContext *)context
 {
-    self = [super init];
+    self = [super initWithNode:node context:context];
     if (self)
     {
         xmlChar *content = xmlNodeGetContent(node);
         self.URLString = [[[NSString alloc] initWithUTF8String:(const char *)content] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         free(content);
+    }
+    return self;
+}
+
+#pragma mark NSCoding
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [super encodeWithCoder:aCoder];
+    
+    [aCoder encodeObject:self.URLString forKey:NSStringFromSelector(@selector(URLString))];
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self)
+    {
+        self.URLString = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(URLString))];
     }
     return self;
 }

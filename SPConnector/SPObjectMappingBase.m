@@ -43,4 +43,21 @@
     return [self.attributeMappings objectForKey:keyPath];
 }
 
+#pragma mark NSCoding
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.attributeMappings forKey:NSStringFromSelector(@selector(attributeMappings))];
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+    if (self)
+    {
+        self->_attributeMappings = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(attributeMappings))];
+    }
+    return self;
+}
+
 @end

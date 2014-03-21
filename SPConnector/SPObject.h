@@ -27,11 +27,13 @@
 
 @class SPContext;
 
-@interface SPObject : NSObject
+@interface SPObject : NSObject <NSCoding>
 
 - (id)initWithNode:(xmlNodePtr)node context:(SPContext *)context;
 
 @property (nonatomic, weak, readonly) SPContext *context;
+
+@property (nonatomic, readonly) NSDictionary *attributes;
 
 - (NSDictionary *)dumpAttributes;
 

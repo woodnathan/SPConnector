@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "SPObjectMapping.h"
 
-@interface SPObjectMappingBase : NSObject <SPObjectMapping>
+@interface SPObjectMappingBase : NSObject <SPObjectMapping, NSCoding>
 
 - (void)mapKeyPath:(NSString *)keyPath toAttribute:(NSString *)attribute;
 - (void)removeMappingForKeyPath:(NSString *)keyPath;

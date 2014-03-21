@@ -52,10 +52,16 @@ static const char *property_getType(objc_property_t property)
 }
 
 @interface SPObject () {
+  @private
     xmlNodePtr _xmlNode;
+  @protected
+    NSDictionary *_attributes;
+    NSSet *_attributeKeys;
 }
 
 @property (nonatomic, readonly) NSMutableDictionary *backingStore;
+
+@property (nonatomic, readonly) NSSet *attributeKeys;
 
 @property (nonatomic, readonly) id <SPObjectMapping> objectMapping;
 
@@ -77,25 +83,27 @@ static const char *property_getType(objc_property_t property)
     self = [super init];
     if (self)
     {
-        // Recursively copy the node with properties and namespaces
-        self->_xmlNode = xmlCopyNode((xmlNodePtr)node, 2);
-        if (self->_xmlNode == NULL)
-            return nil;
+        if (self->_xmlNode != NULL)
+            // Recursively copy the node with properties and namespaces
+            self->_xmlNode = xmlCopyNode((xmlNodePtr)node, 2);
         
-        _context = context;
-        
-        if (context)
+        if (context != nil)
+        {
+            self->_context = context;
+            
             [[NSNotificationCenter defaultCenter] addObserver:self
                                                      selector:@selector(contextWillBeDeallocated:)
                                                          name:SPContextWillBeDeallocated
                                                        object:context];
+        }
     }
     return self;
 }
 
 - (void)dealloc
 {
-    xmlFreeNode(_xmlNode);
+    if (self->_xmlNode != NULL)
+        xmlFreeNode(self->_xmlNode);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -154,17 +162,17 @@ NSString *fastGetter(id self, SEL _cmd)
     
     if ((retVal = [self.backingStore objectForKey:key]) == nil)
     {
-        if ((retVal = [self primitiveValueForKey:key]) == nil)
+        NSSet *attributeKeys = self.attributeKeys;
+        NSString *actualKey = key;
+        if ([attributeKeys containsObject:actualKey] == NO)
         {
-            id mappedKey = [self.objectMapping attributeForKeyPath:key];
-            
-            if ((retVal = [self primitiveValueForKey:mappedKey]) == nil)
+            actualKey = [self.objectMapping attributeForKeyPath:key];
+            if ([attributeKeys containsObject:actualKey] == NO)
             {
-                id owsKey = [NSString stringWithFormat:@"ows_%@", key];
-                
-                retVal = [self primitiveValueForKey:owsKey];
+                actualKey = [NSString stringWithFormat:@"ows_%@", key];
             }
         }
+        retVal = [self.attributes objectForKey:actualKey];
         
         objc_property_t prop = class_getProperty([self class], [key UTF8String]);
         if (prop == nil)
@@ -193,18 +201,54 @@ NSString *fastGetter(id self, SEL _cmd)
 
 - (id)primitiveValueForKey:(NSString *)key
 {
-    xmlAttrPtr attr = xmlHasProp(self->_xmlNode, (xmlChar *)[key UTF8String]);
-    
-    if (attr)
+    return [self.attributes valueForKey:key];
+}
+
+#pragma mark Attributes
+
+- (NSDictionary *)attributes
+{
+    if (self->_attributes == nil)
     {
-        char *content = (char *)xmlNodeGetContent((xmlNodePtr)attr);
-        id value = [[NSString alloc] initWithCString:content encoding:NSUTF8StringEncoding];
-        xmlFree(content);
+        NSMutableDictionary *attrs = [[NSMutableDictionary alloc] init];
         
-        return value;
+        xmlNodePtr node = self->_xmlNode;
+        if (node != NULL)
+        {
+            xmlAttrPtr attr = node->properties;
+            NSString *key = nil;
+            NSString *value = nil;
+            while (attr)
+            {
+                const xmlChar *attrKey = attr->name;
+                xmlChar *attrValue = xmlGetProp(node, attrKey);
+                value = [NSString stringWithUTF8String:(const char *)attrValue];
+                xmlFree(attrValue);
+                
+                key = [NSString stringWithUTF8String:(const char *)attrKey];
+                
+                [attrs setObject:value forKey:key];
+                
+                attr = attr->next;
+            }
+            
+            // Done with the node, dispose of it now
+            xmlFree(node), self->_xmlNode = NULL;
+        }
+        
+        self->_attributes = [attrs copy];
     }
-    
-    return nil;
+    return self->_attributes;
+}
+
+- (NSSet *)attributeKeys
+{
+    if (self->_attributeKeys == nil)
+    {
+        NSArray *allKeys = [self.attributes allKeys];
+        self->_attributeKeys = [NSSet setWithArray:allKeys];
+    }
+    return self->_attributeKeys;
 }
 
 - (NSDictionary *)dumpAttributes
@@ -220,6 +264,25 @@ NSString *fastGetter(id self, SEL _cmd)
         [props setObject:value forKey:key];
     }
     return [props copy];
+}
+
+#pragma mark NSCoding
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.attributes forKey:NSStringFromSelector(@selector(attributes))];
+    [aCoder encodeObject:self.objectMapping forKey:NSStringFromSelector(@selector(objectMapping))];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [self initWithNode:NULL context:nil];
+    if (self)
+    {
+        self->_attributes = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(attributes))];
+        self->_objectMapping = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(objectMapping))];
+    }
+    return self;
 }
 
 @end
