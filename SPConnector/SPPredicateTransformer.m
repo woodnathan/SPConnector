@@ -54,7 +54,10 @@ static inline xmlNodePtr xmlNewElement(const char *name);
 {
     NSMutableDictionary *mapping = [[NSMutableDictionary alloc] initWithCapacity:fields.count];
     for (NSObject *field in fields)
-        [mapping setObject:[fields valueForKey:@"name"] forKey:[fields valueForKey:@"displayName"]];
+    {
+        [mapping setObject:[field valueForKey:@"name"]
+                    forKey:[field valueForKey:@"displayName"]];
+    }
     return [self transformPredicateIntoWhereElement:predicate mapping:mapping];
 }
 
