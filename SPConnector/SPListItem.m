@@ -40,6 +40,11 @@
                                              forClass:self];
 }
 
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"<%@: %p, title: %@>", NSStringFromClass([self class]), self, self.title];
+}
+
 - (void)dealloc
 {
     [self.children makeObjectsPerformSelector:@selector(setParent:) withObject:nil];

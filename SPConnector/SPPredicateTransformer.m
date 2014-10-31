@@ -260,6 +260,7 @@ static inline xmlNodePtr xmlNewElement(const char *name);
     if ([constant isKindOfClass:[NSString class]])
     {
         content = (NSString *)constant;
+        valueType = @"Text";
     }
     else
         if ([constant isKindOfClass:[NSNumber class]])
