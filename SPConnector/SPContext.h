@@ -54,6 +54,8 @@ typedef void(^SPContextRequestSetup)(id requestOperation);
 
 @property (nonatomic, weak) id <SPContextDelegate> delegate;
 
+@property (nonatomic, readonly) NSOperationQueue *queue;
+
 /**
  *  Instances of class must conform to SPMethodRequestOperation
  *  Has a default value of the SPURLConnectionOperation class

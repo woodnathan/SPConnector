@@ -70,6 +70,11 @@ NSString *const SPContextWillBeDeallocated = @"kSPContextWillBeDeallocated";
                                                         object:self];
 }
 
+- (NSOperationQueue *)queue
+{
+    return self.methodQueue;
+}
+
 - (NSURL *)URLRelativeToSiteWithString:(NSString *)URLString
 {
     return [NSURL URLWithString:URLString relativeToURL:self.siteURL];
