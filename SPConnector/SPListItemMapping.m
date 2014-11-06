@@ -17,7 +17,7 @@
     {
         [self mapKeyPath:@"itemID" toAttribute:@"ows_ID"];
         [self mapKeyPath:@"itemUniqueID" toAttribute:@"ows_UniqueId"];
-        [self mapKeyPath:@"title" toAttribute:@"ows_Title"];
+        [self mapKeyPath:@"title" toAttribute:@"ows_BaseName"];
         [self mapKeyPath:@"contentType" toAttribute:@"ows_ContentType"];
         [self mapKeyPath:@"fileRef" toAttribute:@"ows_FileRef"];
     }
