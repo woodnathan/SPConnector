@@ -32,6 +32,7 @@
 
 @property (nonatomic, readonly) NSString *title;
 @property (nonatomic, readonly) NSString *contentType;
+@property (nonatomic, readonly) NSString *baseName;
 
 @property (nonatomic, readonly) NSString *fileRef;
 

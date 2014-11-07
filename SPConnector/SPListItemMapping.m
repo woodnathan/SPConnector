@@ -19,6 +19,7 @@
         [self mapKeyPath:@"itemUniqueID" toAttribute:@"ows_UniqueId"];
         [self mapKeyPath:@"title" toAttribute:@"ows_Title"];
         [self mapKeyPath:@"contentType" toAttribute:@"ows_ContentType"];
+        [self mapKeyPath:@"baseName" toAttribute:@"ows_BaseName"];
         [self mapKeyPath:@"fileRef" toAttribute:@"ows_FileRef"];
     }
     return self;
