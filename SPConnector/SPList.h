@@ -29,6 +29,8 @@
 @property (nonatomic, readonly) NSString *identifier;
 @property (nonatomic, readonly) NSString *listName;
 
+@property (nonatomic, readonly) BOOL enableAttachments;
+
 @property (nonatomic, copy) NSArray *items;
 @property (nonatomic, copy) NSArray *fields;
 @property (nonatomic, copy) NSArray *views;

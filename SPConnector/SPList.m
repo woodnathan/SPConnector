@@ -29,6 +29,7 @@
 
 @synthesize items = _items, fields = _fields, views = _views;
 @dynamic title, identifier, listName;
+@dynamic enableAttachments;
 
 + (void)initialize
 {

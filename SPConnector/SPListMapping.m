@@ -18,6 +18,7 @@
         [self mapKeyPath:@"identifier" toAttribute:@"ID"];
         [self mapKeyPath:@"listName" toAttribute:@"Name"];
         [self mapKeyPath:@"title" toAttribute:@"Title"];
+        [self mapKeyPath:@"enableAttachments" toAttribute:@"EnableAttachments"];
     }
     return self;
 }
