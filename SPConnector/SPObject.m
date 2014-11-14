@@ -175,7 +175,7 @@ NSString *fastGetter(id self, SEL _cmd)
         if (retVal == nil)
             return [converter valueForNil];
         
-        NSRange range = [retVal rangeOfString:@"#;"];
+        NSRange range = [retVal rangeOfString:@";#"];
         if (range.location != NSNotFound)
             retVal = [retVal substringFromIndex:(range.location + range.length)];
         
