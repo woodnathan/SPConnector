@@ -29,7 +29,7 @@
 @implementation SPListItem
 
 @dynamic itemID, itemUniqueID;
-@dynamic title, contentType, baseName;
+@dynamic title, contentType, baseName, docIcon;
 @dynamic fileRef;
 @synthesize parent = _parent, children = _children, attachments = _attachments;
 

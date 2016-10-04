@@ -21,6 +21,7 @@
         [self mapKeyPath:@"contentType" toAttribute:@"ows_ContentType"];
         [self mapKeyPath:@"baseName" toAttribute:@"ows_BaseName"];
         [self mapKeyPath:@"fileRef" toAttribute:@"ows_FileRef"];
+        [self mapKeyPath:@"docIcon" toAttribute:@"ows_DocIcon"];
     }
     return self;
 }
